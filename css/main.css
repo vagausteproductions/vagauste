@@ -743,6 +743,7 @@ body.is-loaded .hero__meta{opacity:1}
 .connect{
   padding:clamp(60px,10vh,120px) var(--pad) clamp(80px,13vh,160px);
   border-top:1px solid var(--line);
+  content-visibility:auto;contain-intrinsic-size:auto 700px;
 }
 .connect__mail{
   display:inline-block;
