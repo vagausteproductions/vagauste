@@ -241,6 +241,10 @@
   $$(".menu__link").forEach(function (l) {
     l.addEventListener("click", function () { toggleMenu(false); });
   });
+  var menuClose = $("#menuClose");
+  if (menuClose) {
+    menuClose.addEventListener("click", function () { toggleMenu(false); });
+  }
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && menu.classList.contains("is-open")) toggleMenu(false);
   });
