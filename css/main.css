@@ -92,7 +92,8 @@ em{font-style:italic}
     linear-gradient(90deg, rgba(0,0,0,.20) 0%, transparent 9%, transparent 91%, rgba(0,0,0,.20) 100%);
 }
 /* ============================================================
-   ANAMORPHIC LENS — perspective curvature, GPU-composited
+   ANAMORPHIC LENS — GPU-composited curvature (flattened: no 3D context,
+   keeps the compositor able to cache layers — same look, no lag)
    (real barrel displacement re-rasters on scroll = lag; this is 60fps)
    ============================================================ */
 main{
