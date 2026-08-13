@@ -541,17 +541,6 @@ html.is-negative{filter:invert(1) hue-rotate(180deg)}
   z-index:2;
 }
 body.is-loaded .hero__meta{opacity:1}
-.hero__num{
-  position:absolute;right:calc(var(--pad) * .4);top:16vh;
-  font-weight:700;line-height:.8;
-  font-size:clamp(180px,34vw,460px);
-  color:transparent;
-  -webkit-text-stroke:1px rgba(242,242,240,.16);
-  letter-spacing:-.03em;
-  pointer-events:none;user-select:none;
-  opacity:0;transition:opacity 2s var(--ease-out) .5s;
-}
-body.is-loaded .hero__num{opacity:1}
 .hero__title{
   position:relative;z-index:2;
   font-weight:300;
@@ -584,7 +573,6 @@ body.is-loaded .hero__num{opacity:1}
 @media (max-width:820px){
   .hero{min-height:auto;padding-top:calc(var(--pad) * 3)}
   .hero__row{grid-template-columns:1fr}
-  .hero__num{top:18vh;right:var(--pad)}
 }
 
 /* ---------- reveal system ---------- */
