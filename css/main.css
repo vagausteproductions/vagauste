@@ -812,16 +812,17 @@ body.is-loaded .hero__meta{opacity:1}
   z-index:990; /* above page overlays — switch tabs while open */
   display:flex;align-items:center;gap:14px;
   padding:11px 22px;border-radius:100px;
-  background:rgba(255,255,255,.05); /* no dark tint — whisper of frost only */
+  background:rgba(255,255,255,.035); /* mirror glass — almost clear */
   -webkit-backdrop-filter:blur(24px) saturate(180%);
   backdrop-filter:blur(24px) saturate(180%);
-  border:1px solid rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.22);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    inset 1px 0 0 rgba(255,255,255,.12),
-    inset -1px 0 0 rgba(255,255,255,.08),
-    inset 0 -2px 6px rgba(255,255,255,.06),
-    0 12px 40px rgba(0,0,0,.4);
+    inset 0 1px 0 rgba(255,255,255,.45),
+    inset 1px 0 0 rgba(255,255,255,.15),
+    inset -1px 0 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(255,255,255,.25),
+    inset 0 -3px 8px rgba(255,255,255,.07),
+    0 12px 40px rgba(0,0,0,.35);
   font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#bcbcb6;
   -webkit-user-select:none;user-select:none;
   opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out);
@@ -830,18 +831,18 @@ body.is-loaded .hero__meta{opacity:1}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
 .tabs:hover .tabs__tab{text-shadow:none}
-/* liquid glass texture — natural reflections: top specular, diagonal streak, bottom bounce */
+/* liquid glass texture — mirror reflections: top specular, diagonal streak, bottom bounce */
 .tabs::before{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:
-    linear-gradient(115deg, transparent 18%, rgba(255,255,255,.16) 36%, rgba(255,255,255,.04) 45%, transparent 58%),
-    linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.05) 28%, transparent 52%);
+    linear-gradient(115deg, transparent 15%, rgba(255,255,255,.22) 35%, rgba(255,255,255,.06) 46%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.26) 0%, rgba(255,255,255,.07) 26%, transparent 50%);
 }
 .tabs::after{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(0deg, rgba(255,255,255,.10) 0%, transparent 30%);
-  -webkit-mask-image:linear-gradient(180deg, transparent 45%, #000 100%);
-  mask-image:linear-gradient(180deg, transparent 45%, #000 100%);
+  background:linear-gradient(0deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.04) 28%, transparent 45%);
+  -webkit-mask-image:linear-gradient(180deg, transparent 40%, #000 100%);
+  mask-image:linear-gradient(180deg, transparent 40%, #000 100%);
 }
 body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .tabs i{font-style:normal;color:var(--grey-2)}
