@@ -705,7 +705,7 @@ body.is-loaded .hero__meta{opacity:1}
 /* ============================================================
    ABOUT
    ============================================================ */
-.about{padding:clamp(60px,10vh,120px) var(--pad)}
+.about{padding:clamp(60px,10vh,120px) var(--pad);content-visibility:auto;contain-intrinsic-size:auto 900px}
 .about__grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(30px,5vw,80px);align-items:start}
 .about__title{
   font-weight:300;font-size:clamp(30px,4.6vw,80px);line-height:1.06;
