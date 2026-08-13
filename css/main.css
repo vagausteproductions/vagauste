@@ -597,6 +597,7 @@ body.is-loaded .hero__meta{opacity:1}
   position:relative;
   padding:clamp(40px,7vh,80px) var(--pad) clamp(70px,12vh,150px);
   border-top:1px solid var(--line);
+  content-visibility:auto;contain-intrinsic-size:auto 1200px;
 }
 .index__head,.about__head,.connect__head{
   display:flex;justify-content:space-between;align-items:baseline;
@@ -669,7 +670,7 @@ body.is-loaded .hero__meta{opacity:1}
 /* ============================================================
    MEDIA BAND — one 16mm frame
    ============================================================ */
-.band{border-top:1px solid var(--line)}
+.band{border-top:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:auto 640px}
 .band__img{
   position:relative;height:clamp(320px,62vh,640px);overflow:hidden;
   --px:0px;--py:0px;
