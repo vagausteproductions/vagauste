@@ -483,7 +483,8 @@ html.is-negative{filter:invert(1) hue-rotate(180deg)}
 @media (max-width:820px){
   .nav{display:none}
   .menu-btn{display:block}
-  .neg-btn{margin-right:0}
+  .neg-btn{margin-right:14px;padding:6px 10px;font-size:8px;letter-spacing:.26em}
+  .header{padding-top:calc(env(safe-area-inset-top,0px) + 30px);padding-bottom:14px}
   .hero__meta{display:none} /* phone only — Karachi text below options button */
 }
 
