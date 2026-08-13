@@ -1,0 +1,151 @@
+<!-- ============================================================
+  VAGAUSTÉ — BTS PAGE (drop-in snippet)
+  ------------------------------------------------------------
+  HOW TO INSTALL
+  1. In index.html, replace the ENTIRE <div class="page" id="pageBTS">…
+     block (lines ~353–369) with the HTML section below.
+  2. Append the CSS section below to css/main.css (after the
+     ".crew__note" rule). No JS changes needed — the tab wiring
+     (data-page="bts" → #pageBTS) and the GSAP stagger on
+     .page__fig already exist in js/main.js.
+  ------------------------------------------------------------
+  CONCEPT — a contact sheet from the cutting-room floor.
+  Three movements, top to bottom:
+    1. THE REEL   — reel.mp4, muted + looping, seated in a 16mm
+                    "film gate" frame with a full-width sprocket
+                    strip (filmstrip.png) above it, and a slate
+                    caption bar below.
+    2. THE SHEET  — a 3-column contact sheet of real production
+                    stills (hero / studio / work stills), edge-
+                    printed captions, ending in ONE honest empty
+                    frame where the user's real BTS photos go.
+    3. THE NOTES  — shooting notes as quiet log rows, using only
+                    real site copy (location, stock, process,
+                    formats).
+  ============================================================ -->
+
+<!-- ============ HTML — replace the existing #pageBTS block ============ -->
+<div class="page" id="pageBTS" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">05 — BTS</span>
+      <h2 class="page__title">BTS</h2>
+      <p class="page__desc">Behind the scenes — the set, the camera, the light.</p>
+    </header>
+
+    <div class="page__bts">
+
+      <!-- 1 · THE REEL — centerpiece, muted looping film -->
+      <div class="bts__reel">
+        <img class="bts__strip" src="assets/img/filmstrip.png" alt="" aria-hidden="true">
+        <div class="bts__frame">
+          <video src="assets/img/reel.mp4" poster="assets/img/reel-poster.jpg"
+                 autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+        </div>
+        <div class="bts__slate">
+          <span>On set — Karachi</span>
+          <span>16mm · 24fps · Ektachrome → B/W</span>
+        </div>
+      </div>
+
+      <!-- 2 · THE SHEET — production stills contact sheet -->
+      <div class="bts__sheet">
+        <div class="bts__sheet-head">
+          <span class="eyebrow">Production stills</span>
+          <span class="count">(06)</span>
+        </div>
+        <div class="page__grid page__grid--sheet">
+          <figure class="page__fig">
+            <img src="assets/img/hero.jpg" alt="On set — Karachi">
+            <figcaption>On set — Karachi</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/studio.jpg" alt="Inside the Vagausté studio">
+            <figcaption>The Studio — Karachi</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-01.jpg" alt="Frame from Untitled — 2025">
+            <figcaption>Frame — Untitled · 2025</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-03.jpg" alt="Frame from Nocturne — 2024">
+            <figcaption>Frame — Nocturne · 2024</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-05.jpg" alt="Frame from Monsoon — 2024">
+            <figcaption>Frame — Monsoon · 2024</figcaption>
+          </figure>
+          <!-- honest placeholder — the user's real BTS photos land here -->
+          <figure class="page__fig page__fig--empty">
+            <span class="bts__empty">Your BTS photos land here — coming soon.</span>
+            <figcaption>Frame — reserved</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- 3 · THE NOTES — shooting notes (real site copy only) -->
+      <div class="page__facts">
+        <div><span class="k">Location</span><span class="v">Clifton, Karachi — Pakistan</span></div>
+        <div><span class="k">Stock</span><span class="v">16mm · 24fps · Ektachrome → B/W</span></div>
+        <div><span class="k">Process</span><span class="v">From the first treatment to the final grade — one vision, carried through.</span></div>
+        <div><span class="k">Formats</span><span class="v">Commercials · Documentaries · Branded films · Photographs</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ CSS — append to css/main.css (after .crew__note) ============
+.page__bts{display:flex;flex-direction:column;gap:clamp(44px,7vh,76px)}
+
+/* reel — sprocket strip + film gate */
+.bts__reel{position:relative}
+.bts__strip{display:block;width:100%;height:auto;filter:grayscale(1);opacity:.92}
+.bts__frame{
+  position:relative;margin-top:0;
+  padding:clamp(10px,1.4vw,18px);
+  background:var(--ink2);border:1px solid var(--line);
+}
+.bts__frame::before,.bts__frame::after{
+  content:"";position:absolute;left:clamp(10px,1.4vw,18px);right:clamp(10px,1.4vw,18px);
+  height:1px;background:var(--line-soft);
+}
+.bts__frame::before{top:3px}
+.bts__frame::after{bottom:3px}
+.bts__frame video{
+  display:block;width:100%;aspect-ratio:16/9;object-fit:cover;
+  filter:grayscale(1) contrast(1.08);
+  box-shadow:0 18px 50px rgba(0,0,0,.6);
+}
+.bts__slate{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:14px 2px 0;
+  font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--grey);
+}
+
+/* sheet — contact sheet head + 3-col grid */
+.bts__sheet-head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding-top:18px;margin-bottom:clamp(16px,2.4vh,26px);
+  border-top:1px solid var(--line);
+}
+.bts__sheet-head .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey-2);margin:0}
+.bts__sheet-head .count{font-size:10px;letter-spacing:.2em;color:var(--grey-2);font-variant-numeric:tabular-nums}
+.page__grid--sheet{grid-template-columns:repeat(3,1fr)}
+
+/* empty frame — where the real BTS photos land */
+.page__fig--empty .bts__empty{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  aspect-ratio:4/3;padding:22px;box-sizing:border-box;
+  border:1px dashed var(--line);background:rgba(242,242,240,.015);
+  font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#9a9a94;
+}
+.page__fig--empty figcaption{margin-top:10px}
+.page__fig--empty:hover .bts__empty{border-color:var(--grey-2)}
+
+@media (max-width:820px){
+  .page__grid--sheet{grid-template-columns:1fr}
+  .bts__slate{flex-direction:column;gap:6px}
+}
+-->

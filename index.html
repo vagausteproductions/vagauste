@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vagausté — Film. Image. Story.</title>
+<meta name="description" content="Vagausté is a film and image production house from Karachi. Commercials, documentaries, branded films and photographs — worlds that feel real, carried into the future.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="%23070707"/><text x="16" y="24" font-family="Railway,Georgia,serif" font-size="22" font-weight="700" fill="%23f2f2f0" text-anchor="middle">V</text></svg>'>
+<link rel="stylesheet" href="css/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body class="is-locked">
+
+<!-- ============ 16mm FILM LAYER ============ -->
+<div class="fx fx-grain" aria-hidden="true"></div>
+<div class="fx fx-scan" aria-hidden="true"></div>
+<div class="fx fx-vig" aria-hidden="true"></div>
+<div class="fx fx-bloom" aria-hidden="true"></div>
+
+<!-- ============ CORNER CHROMATIC ABERRATION — zoom blur + RGB split, 4 corners only ============ -->
+<div class="corner corner-tl" aria-hidden="true"></div>
+<div class="corner corner-tr" aria-hidden="true"></div>
+<div class="corner corner-bl" aria-hidden="true"></div>
+<div class="corner corner-br" aria-hidden="true"></div>
+
+<!-- ============ SCROLL JOURNEY — the line that travels with you ============ -->
+<div class="journey" aria-hidden="true">
+  <i class="journey__fill" id="journeyFill"></i>
+  <i class="journey__dot" id="journeyDot"></i>
+</div>
+<!-- traveling light — background shifts as you scroll -->
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- custom cursor -->
+<div class="cursor" aria-hidden="true"><span class="cursor-label">View</span></div>
+
+<!-- ============ PRELOADER — A24 bloom + layered trail logo ============ -->
+<div class="preloader" id="preloader" aria-hidden="false">
+  <div class="preloader__crt" aria-hidden="true"></div>
+  <div class="preloader__vignette" aria-hidden="true"></div>
+  <div class="preloader__leak" aria-hidden="true"></div>
+  <div class="preloader__grain" aria-hidden="true"></div>
+
+  <div class="preloader__center">
+    <div class="preloader__halo" aria-hidden="true"></div>
+
+    <div class="wordmark" id="wordmark" aria-label="Vagausté">
+      <div class="wm wm-far" aria-hidden="true" data-wm>
+        <span>V</span><span>a</span><span>g</span><span>a</span><span>u</span><span>s</span><span>t</span><span class="accent">é</span>
+      </div>
+      <div class="wm wm-mid" aria-hidden="true" data-wm>
+        <span>V</span><span>a</span><span>g</span><span>a</span><span>u</span><span>s</span><span>t</span><span class="accent">é</span>
+      </div>
+      <div class="wm wm-core" data-wm>
+        <span>V</span><span>a</span><span>g</span><span>a</span><span>u</span><span>s</span><span>t</span><span class="accent">é</span>
+      </div>
+      <div class="wm wm-aber" aria-hidden="true">
+        <span>V</span><span>a</span><span>g</span><span>a</span><span>u</span><span>s</span><span>t</span><span class="accent">é</span>
+      </div>
+    </div>
+
+    <div class="preloader__sub" id="preloaderSub">Productions</div>
+  </div>
+
+  <div class="preloader__meta">
+    <div class="vg-load__meta" aria-hidden="true">
+      <span class="vg-load__readout" id="vgFtFr">0000 + 00</span>
+      <span class="vg-load__unit">FT + FR</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER — minimal (milez.jp) ============ -->
+<header class="header" id="header">
+  <a class="brand glow" href="#top" data-nav><img class="brand__logo" src="assets/img/logo.png" alt="Vagausté"></a>
+  <button class="neg-btn" id="negBtn" aria-pressed="false" title="Film negative — invert all colors">NEG</button>
+  <nav class="nav" aria-label="Primary">
+    <a href="#index" data-nav>Index</a>
+    <a href="#about" data-nav>About</a>
+    <a href="#" data-page="crew">Crew</a>
+    <a href="#connect" data-nav>Connect</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+    <i></i><i></i>
+  </button>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__list" aria-label="Menu">
+    <a class="menu__link" href="#index" data-nav><span class="idx">01</span><span class="word">Index</span></a>
+    <a class="menu__link" href="#about" data-nav><span class="idx">02</span><span class="word">About</span></a>
+    <a class="menu__link" href="#" data-page="crew"><span class="idx">03</span><span class="word">Crew</span></a>
+    <a class="menu__link" href="#connect" data-nav><span class="idx">04</span><span class="word">Connect</span></a>
+  </nav>
+  <div class="menu__foot">
+    <span>Karachi, Pakistan</span>
+    <span>hello@vagauste.com</span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO — statement (milez.jp) ============ -->
+  <section class="hero" id="hero">
+    <video class="hero__film" src="assets/img/hero-mist.mp4" autoplay muted loop playsinline preload="auto" poster="assets/img/hero.jpg" aria-hidden="true"></video>
+    <div class="hero__meta">
+      <span>Karachi — 24.86° N</span>
+    </div>
+
+    <div class="hero__num" aria-hidden="true">06</div>
+
+    <h1 class="hero__title" id="heroTitle">
+      <span class="line"><span>The people, places and</span></span>
+      <span class="line"><span>stories that are still</span></span>
+      <span class="line"><span><em>glowing</em> today.</span></span>
+    </h1>
+
+    <div class="hero__row">
+      <p class="hero__tag" data-reveal>Vagausté is a film and image house from Karachi. We step into the sanctum of every story — commercials, documentaries, branded films and photographs built on emotion, precision and light.</p>
+      <p class="hero__tag en" data-reveal>今日も光ってるあの人、あの場所、あのこと。<br>永遠の現在として。</p>
+    </div>
+  </section>
+
+  <!-- ============ INDEX — numbered rows (milez.jp) ============ -->
+  <section class="index" id="index">
+    <div class="index__head">
+      <span class="eyebrow">Index — Selected Work</span>
+      <span class="count">(06)</span>
+    </div>
+
+    <div class="index__list">
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-01.jpg">
+        <span class="proj__num">01</span>
+        <span class="proj__name">
+          <span class="sw"><span>Untitled</span><span class="sw2">Untitled</span></span>
+        </span>
+        <span class="proj__cat">Commercial Film</span>
+        <span class="proj__year">2025</span>
+      </a>
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-02.jpg">
+        <span class="proj__num">02</span>
+        <span class="proj__name">
+          <span class="sw"><span>Shadows</span><span class="sw2">Shadows</span></span>
+        </span>
+        <span class="proj__cat">Branded Content</span>
+        <span class="proj__year">2025</span>
+      </a>
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-03.jpg">
+        <span class="proj__num">03</span>
+        <span class="proj__name">
+          <span class="sw"><span>Nocturne</span><span class="sw2">Nocturne</span></span>
+        </span>
+        <span class="proj__cat">Short Film</span>
+        <span class="proj__year">2024</span>
+      </a>
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-04.jpg">
+        <span class="proj__num">04</span>
+        <span class="proj__name">
+          <span class="sw"><span>Still / Life</span><span class="sw2">Still / Life</span></span>
+        </span>
+        <span class="proj__cat">Photography</span>
+        <span class="proj__year">2024</span>
+      </a>
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-05.jpg">
+        <span class="proj__num">05</span>
+        <span class="proj__name">
+          <span class="sw"><span>Monsoon</span><span class="sw2">Monsoon</span></span>
+        </span>
+        <span class="proj__cat">Documentary</span>
+        <span class="proj__year">2024</span>
+      </a>
+      <a class="proj" href="#connect" data-nav data-cursor="view" data-img="assets/img/work-06.jpg">
+        <span class="proj__num">06</span>
+        <span class="proj__name">
+          <span class="sw"><span>Freq</span><span class="sw2">Freq</span></span>
+        </span>
+        <span class="proj__cat">Podcast</span>
+        <span class="proj__year">2023</span>
+      </a>
+    </div>
+
+    <div class="index__preview" id="indexPreview" aria-hidden="true">
+      <img src="assets/img/work-01.jpg" alt="">
+      <img src="assets/img/work-02.jpg" alt="">
+      <img src="assets/img/work-03.jpg" alt="">
+      <img src="assets/img/work-04.jpg" alt="">
+      <img src="assets/img/work-05.jpg" alt="">
+      <img src="assets/img/work-06.jpg" alt="">
+      <span class="index__preview__cat" id="previewCat"></span>
+    </div>
+  </section>
+
+  <!-- ============ MEDIA BAND — one 16mm frame ============ -->
+  <section class="band">
+    <div class="band__img">
+      <img src="assets/img/studio.jpg" alt="Inside the Vagausté studio" data-parallax>
+      <div class="band__halation" aria-hidden="true"></div>
+    </div>
+    <div class="band__cap">
+      <span>The Studio — Karachi</span>
+      <span>16mm · 24fps · Ektachrome → B/W</span>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about__head">
+      <span class="eyebrow">About</span>
+      <span class="count">Since 2023</span>
+    </div>
+    <div class="about__grid">
+      <div class="about__text">
+        <h2 class="about__title split-lines" id="aboutTitle">
+          <span class="line"><span>A house built on</span></span>
+          <span class="line"><span><em class="glow-3">emotion,</em> story</span></span>
+          <span class="line"><span>and detail.</span></span>
+        </h2>
+        <div class="about__body" data-reveal>
+          <p>Vagausté is a collective of filmmakers, editors and artists who believe in long-term collaboration and honest work. Everything happens under one roof in Karachi — from the first treatment to the final grade. <strong>One vision, carried through.</strong></p>
+          <p class="dis">Film — Edit — Photo — Podcast</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat" data-reveal><div class="stat__num"><span data-count="40">0</span><sup>+</sup></div><div class="stat__label">Projects delivered</div></div>
+        <div class="stat" data-reveal><div class="stat__num"><span data-count="18">0</span></div><div class="stat__label">Brands &amp; artists</div></div>
+        <div class="stat" data-reveal><div class="stat__num"><span data-count="04">0</span></div><div class="stat__label">Disciplines</div></div>
+        <div class="stat" data-reveal><div class="stat__num"><span data-count="2023">0</span></div><div class="stat__label">Founded</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECT ============ -->
+  <section class="connect" id="connect">
+    <div class="connect__head">
+      <span class="eyebrow">Connect</span>
+      <span class="count">Say salaam</span>
+    </div>
+    <a class="connect__mail glow" href="mailto:hello@vagauste.com" data-reveal>hello@vagauste.com</a>
+    <div class="connect__grid">
+      <div class="cell" data-reveal>
+        <div class="k">Studio</div>
+        <div class="v">Clifton, Karachi<br>Pakistan</div>
+      </div>
+      <div class="cell" data-reveal>
+        <div class="k">Social</div>
+        <div class="v">
+          <a href="https://www.instagram.com/vagausteproductions" target="_blank" rel="noopener">Instagram</a> ·
+          <a href="#" rel="noopener">Vimeo</a> ·
+          <a href="#" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <div class="cell" data-reveal>
+        <div class="k">New business</div>
+        <div class="v"><a href="mailto:hello@vagauste.com">hello@vagauste.com</a></div>
+      </div>
+      <div class="cell" data-reveal>
+        <div class="k">Local time</div>
+        <div class="v"><span id="localTime">--:--</span> PKT</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <span class="f-brand glow-2">Vagausté <em>Productions</em></span>
+    <span>© 2026 — Karachi, Pakistan</span>
+    <a href="#top" data-nav>Back to top ↑</a>
+  </footer>
+
+</main>
+
+<!-- ============ TABS — Film / Image / Story (open & close) ============ -->
+<nav class="tabs" aria-label="Pages">
+  <a href="#" data-page="film" class="tabs__tab">Cinematics</a><i>·</i>
+  <a href="#" data-page="image" class="tabs__tab">Photography</a><i>·</i>
+  <a href="#" data-page="story" class="tabs__tab">Story</a><i>·</i>
+  <a href="#" data-page="crew" class="tabs__tab">Crew</a><i>·</i>
+  <a href="#" data-page="bts" class="tabs__tab">BTS</a>
+</nav>
+
+<!-- ============ PAGES — Film / Image / Story ============ -->
+<div class="page" id="pageFilm" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">01 — Cinematics</span>
+      <h2 class="page__title">Cinematics</h2>
+      <p class="page__desc">Work we shot, graded and cut — commercials, shorts and documentaries from Karachi.</p>
+    </header>
+    <div class="page__list">
+      <a class="page__item" href="#index" data-nav><span class="page__idx">01</span><span class="page__name">Untitled</span><span class="page__meta">Commercial Film — 2025</span></a>
+      <a class="page__item" href="#index" data-nav><span class="page__idx">02</span><span class="page__name">Shadows</span><span class="page__meta">Branded Content — 2025</span></a>
+      <a class="page__item" href="#index" data-nav><span class="page__idx">03</span><span class="page__name">Nocturne</span><span class="page__meta">Short Film — 2024</span></a>
+      <a class="page__item" href="#index" data-nav><span class="page__idx">04</span><span class="page__name">Still / Life</span><span class="page__meta">Photography — 2024</span></a>
+      <a class="page__item" href="#index" data-nav><span class="page__idx">05</span><span class="page__name">Monsoon</span><span class="page__meta">Documentary — 2024</span></a>
+      <a class="page__item" href="#index" data-nav><span class="page__idx">06</span><span class="page__name">Freq</span><span class="page__meta">Podcast — 2023</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pageImage" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">02 — Photography</span>
+      <h2 class="page__title">Photography</h2>
+      <p class="page__desc">Stills from the set and the streets — all monochrome, all film-state.</p>
+    </header>
+    <div class="page__grid">
+      <figure class="page__fig"><img src="assets/img/work-01.jpg" alt="Untitled"><figcaption>Untitled — 2025</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/work-02.jpg" alt="Shadows"><figcaption>Shadows — 2025</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/work-03.jpg" alt="Nocturne"><figcaption>Nocturne — 2024</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/work-04.jpg" alt="Still / Life"><figcaption>Still / Life — 2024</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/work-05.jpg" alt="Monsoon"><figcaption>Monsoon — 2024</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/work-06.jpg" alt="Freq"><figcaption>Freq — 2023</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/studio.jpg" alt="The studio"><figcaption>The Studio — Karachi</figcaption></figure>
+      <figure class="page__fig"><img src="assets/img/hero.jpg" alt="On set"><figcaption>On set — 2025</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pageStory" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">03 — Story</span>
+      <h2 class="page__title">Story</h2>
+    </header>
+    <div class="page__body">
+      <p class="page__lead">Vagausté is a collective of filmmakers, editors and artists who believe in long-term collaboration and honest work. Everything happens under one roof in Karachi — from the first treatment to the final grade. <strong>One vision, carried through.</strong></p>
+      <p class="dis">Film — Edit — Photo — Podcast</p>
+      <div class="page__facts">
+        <div><span class="k">Studio</span><span class="v">Clifton, Karachi<br>Pakistan</span></div>
+        <div><span class="k">Local time</span><span class="v" id="pageTime">--:--</span></div>
+        <div><span class="k">New business</span><span class="v">hello@vagauste.com</span></div>
+        <div><span class="k">Social</span><span class="v">Instagram · Vimeo · YouTube</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pageCrew" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">04 — Crew</span>
+      <h2 class="page__title">Crew</h2>
+      <p class="page__desc">The people behind the frame.</p>
+    </header>
+    <div class="page__grid page__grid--crew" id="crewGrid">
+      <figure class="page__fig">
+        <span class="crew__sig">Crew 01</span>
+        <img src="assets/img/crew/crew-01.jpg" alt="Crew 01/04">
+        <figcaption>Crew 01/04</figcaption>
+      </figure>
+      <figure class="page__fig">
+        <span class="crew__sig">Crew 02</span>
+        <img src="assets/img/crew/crew-02.jpg" alt="Crew 02/04">
+        <figcaption>Crew 02/04</figcaption>
+      </figure>
+      <figure class="page__fig">
+        <span class="crew__sig">Crew 03</span>
+        <img src="assets/img/crew/crew-03.jpg" alt="Crew 03/04">
+        <figcaption>Crew 03/04</figcaption>
+      </figure>
+      <figure class="page__fig">
+        <span class="crew__sig">Crew 04</span>
+        <img src="assets/img/crew/crew-04.jpg" alt="Crew 04/04">
+        <figcaption>Crew 04/04</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pageBts" aria-hidden="true">
+  <button class="page__close" data-close aria-label="Close">✕</button>
+  <div class="page__inner">
+    <header class="page__head">
+      <span class="page__eyebrow">05 — BTS</span>
+      <h2 class="page__title">BTS</h2>
+      <p class="page__desc">Behind the scenes — the set, the camera, the light.</p>
+    </header>
+
+    <div class="page__bts">
+
+      <!-- 1 · THE REEL — centerpiece, muted looping film -->
+      <div class="bts__reel">
+        <img class="bts__strip" src="assets/img/filmstrip.png" alt="" aria-hidden="true">
+        <div class="bts__frame">
+          <video src="assets/img/reel.mp4" poster="assets/img/reel-poster.jpg"
+                 autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+        </div>
+        <div class="bts__slate">
+          <span>On set — Karachi</span>
+          <span>16mm · 24fps · Ektachrome → B/W</span>
+        </div>
+      </div>
+
+      <!-- 2 · THE SHEET — production stills contact sheet -->
+      <div class="bts__sheet">
+        <div class="bts__sheet-head">
+          <span class="eyebrow">Production stills</span>
+          <span class="count">(06)</span>
+        </div>
+        <div class="page__grid page__grid--sheet">
+          <figure class="page__fig">
+            <img src="assets/img/hero.jpg" alt="On set — Karachi">
+            <figcaption>On set — Karachi</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/studio.jpg" alt="Inside the Vagausté studio">
+            <figcaption>The Studio — Karachi</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-01.jpg" alt="Frame from Untitled — 2025">
+            <figcaption>Frame — Untitled · 2025</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-03.jpg" alt="Frame from Nocturne — 2024">
+            <figcaption>Frame — Nocturne · 2024</figcaption>
+          </figure>
+          <figure class="page__fig">
+            <img src="assets/img/work-05.jpg" alt="Frame from Monsoon — 2024">
+            <figcaption>Frame — Monsoon · 2024</figcaption>
+          </figure>
+          <figure class="page__fig page__fig--empty">
+            <span class="bts__empty">Your BTS photos land here — coming soon.</span>
+            <figcaption>Frame — reserved</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- 3 · THE NOTES — shooting notes (real site copy only) -->
+      <div class="page__facts">
+        <div><span class="k">Location</span><span class="v">Clifton, Karachi — Pakistan</span></div>
+        <div><span class="k">Stock</span><span class="v">16mm · 24fps · Ektachrome → B/W</span></div>
+        <div><span class="k">Process</span><span class="v">From the first treatment to the final grade — one vision, carried through.</span></div>
+        <div><span class="k">Formats</span><span class="v">Commercials · Documentaries · Branded films · Photographs</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* dev-only auto-reload — refreshes the preview window when files change (port-gated, never ships) */
+if (location.port === "8932") {
+  (function () {
+    var files = ["index.html", "css/main.css", "js/main.js"];
+    var cache = {};
+    function hash(s) { var h = 5381, i = s.length; while (i) h = (h * 33) ^ s.charCodeAt(--i); return h >>> 0; }
+    setInterval(function () {
+      files.forEach(function (f) {
+        fetch(f, { cache: "no-store" }).then(function (r) { return r.text(); }).then(function (t) {
+          var h = hash(t);
+          if (cache[f] && cache[f] !== h) location.reload();
+          cache[f] = h;
+        }).catch(function () {});
+      });
+    }, 800);
+  })();
+}
+</script>
+</body>
+</html>
