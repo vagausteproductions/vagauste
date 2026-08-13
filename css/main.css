@@ -97,9 +97,7 @@ em{font-style:italic}
    (real barrel displacement re-rasters on scroll = lag; this is 60fps)
    ============================================================ */
 main{
-  transform:perspective(1400px) rotateX(1.2deg);
   transform-origin:50% 50%;
-  will-change:transform;
 }
 /* ============================================================
    FISHEYE EDGES — stretched, dark vignette only (no blue, no blur, no RGB)
