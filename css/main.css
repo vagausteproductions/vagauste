@@ -88,8 +88,7 @@ em{font-style:italic}
    ============================================================ */
 .fx-vig{
   background:
-    radial-gradient(ellipse 94% 74% at 50% 50%, transparent 50%, rgba(0,0,0,.20) 82%, rgba(0,0,0,.36) 94%, rgba(0,0,0,.5) 100%),
-    linear-gradient(90deg, rgba(0,0,0,.20) 0%, transparent 9%, transparent 91%, rgba(0,0,0,.20) 100%);
+    radial-gradient(ellipse 94% 74% at 50% 50%, transparent 50%, rgba(0,0,0,.20) 82%, rgba(0,0,0,.36) 94%, rgba(0,0,0,.5) 100%);
 }
 /* ============================================================
    ANAMORPHIC LENS — GPU-composited curvature (flattened: no 3D context,
@@ -811,8 +810,8 @@ body.is-loaded .hero__meta{opacity:1}
 .tabs{
   position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
   z-index:990; /* above page overlays — switch tabs while open */
-  display:flex;align-items:center;gap:14px;
-  padding:11px 22px;border-radius:100px;
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;border-radius:100px;
   background:rgba(255,255,255,.035); /* mirror glass — almost clear */
   -webkit-backdrop-filter:blur(24px) saturate(180%);
   backdrop-filter:blur(24px) saturate(180%);
@@ -824,11 +823,12 @@ body.is-loaded .hero__meta{opacity:1}
     inset 0 -1px 0 rgba(255,255,255,.25),
     inset 0 -3px 8px rgba(255,255,255,.07),
     0 12px 40px rgba(0,0,0,.35);
-  font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#bcbcb6;
+  font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#bcbcb6;
   -webkit-user-select:none;user-select:none;
   opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out);
   pointer-events:none;
 }
+.tabs *{-webkit-user-select:none;user-select:none}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
 .tabs:hover .tabs__tab{text-shadow:none}
