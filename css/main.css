@@ -832,7 +832,7 @@ body.is-loaded .hero__meta{opacity:1}
 .tabs{
   position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
   z-index:990; /* above page overlays — switch tabs while open */
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
   padding:9px 14px;border-radius:100px;
   /* mirror glass — clear but never black: white sheen gradient keeps it visible on any backdrop */
   background:
