@@ -175,8 +175,8 @@
     });
     function loop() {
       cursorRaf = 0;
-      cx += (mx - cx) * 0.38;
-      cy += (my - cy) * 0.38;
+      cx += (mx - cx) * 0.6;
+      cy += (my - cy) * 0.6;
       var s = cursor.classList.contains("is-down") ? 0.8 : 1;
       cursor.style.transform = "translate3d(" + cx + "px," + cy + "px,0) translate(-50%,-50%) scale(" + s + ")";
       if (Math.abs(mx - cx) > 0.5 || Math.abs(my - cy) > 0.5) {
