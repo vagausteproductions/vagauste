@@ -448,6 +448,7 @@ main{
   transition:opacity .4s,filter .4s;
 }
 .brand:hover .brand__logo{opacity:1;filter:brightness(1.25)}
+.brand.glow{animation:none} /* image logo — no text glow to animate */
 .brand em{font-style:normal;color:var(--paper)}
 .nav{display:flex;gap:clamp(22px,3vw,44px);font-size:11px;letter-spacing:.28em;text-transform:uppercase}
 /* film-negative toggle — inverts the whole site */
