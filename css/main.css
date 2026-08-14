@@ -911,7 +911,7 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
   .tabs{
     bottom:calc(env(safe-area-inset-bottom,0px) + 36px);
     max-width:calc(100vw - 20px);
-    gap:16px;padding:9px 24px; /* stretched beam — whole text block centered as one unit */
+    gap:10px;padding:9px 30px; /* stretched beam — BTS dead-center, optically balanced line */
     font-size:8.5px;letter-spacing:.2em;
     white-space:nowrap;
     /* stronger static glass — stays visible when backdrop-filter pauses during scroll on phones */
