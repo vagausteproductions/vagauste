@@ -306,25 +306,26 @@
     var quickX = gsap.quickTo(preview, "x", { duration: 0.5, ease: "power3.out" });
     var quickY = gsap.quickTo(preview, "y", { duration: 0.5, ease: "power3.out" });
     function clampX(cx, sw) { return Math.max(16, Math.min(cx, sw - PW - 16)); }
+    var secEl = $(".index");
+    var secLeft = secEl ? secEl.offsetLeft : 0;
+    var secW = secEl ? secEl.offsetWidth : 0;
+    var secTop = secEl ? secEl.offsetTop : 0;
     rows.forEach(function (row, i) {
+      var relTop = row.offsetTop - secTop;
+      var rowH = row.offsetHeight;
       row.addEventListener("mouseenter", function (e) {
-        var r = row.getBoundingClientRect();
-        var sec = row.closest(".index");
-        var sRect = sec.getBoundingClientRect();
-        var x = clampX(e.clientX - sRect.left + 26, sRect.width);
-        var y = (r.top - sRect.top + r.height / 2) - PH / 2;
+        var x = clampX(e.clientX - secLeft + 26, secW);
+        var y = relTop + rowH / 2 - PH / 2;
         previewImgs.forEach(function (im, j) { im.classList.toggle("active", j === i); });
         if (previewCat) previewCat.textContent = (row.querySelector(".proj__cat") || {}).textContent || "";
         gsap.set(preview, { x: x, y: y, scale: 0.95 });
         gsap.to(preview, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" });
       });
       row.addEventListener("mousemove", function (e) {
-        var r = row.getBoundingClientRect();
-        var sec = row.closest(".index");
-        var sRect = sec.getBoundingClientRect();
-        var p = (e.clientY - r.top) / r.height - 0.5; /* -0.5..0.5 */
-        quickX(clampX(e.clientX - sRect.left + 26, sRect.width));
-        quickY((r.top - sRect.top + r.height / 2) - PH / 2 + p * 24);
+        var rowTopVp = secTop - window.scrollY + relTop;
+        var p = (e.clientY - rowTopVp) / rowH - 0.5; /* -0.5..0.5 */
+        quickX(clampX(e.clientX - secLeft + 26, secW));
+        quickY(relTop + rowH / 2 - PH / 2 + p * 24);
       });
       row.addEventListener("mouseleave", function () {
         gsap.to(preview, { opacity: 0, scale: 0.95, duration: 0.3, ease: "power2.out" });
@@ -440,18 +441,28 @@
      ============================================================ */
   var band = document.querySelector(".band__img");
   if (band && window.matchMedia("(hover:hover)").matches) {
-    var bx = 0, by = 0, tx = 0, ty = 0;
+    var bx = 0, by = 0, tx = 0, ty = 0, bandRaf = 0, bandIn = false;
     document.addEventListener("mousemove", function (e) {
       tx = e.clientX / window.innerWidth - 0.5;
       ty = e.clientY / window.innerHeight - 0.5;
+      if (!bandRaf && bandIn) bandRaf = requestAnimationFrame(loopB);
     });
-    (function loopB() {
+    function loopB() {
+      bandRaf = 0;
       bx += (tx - bx) * 0.06;
       by += (ty - by) * 0.06;
       band.style.setProperty("--px", (bx * 18).toFixed(2) + "px");
       band.style.setProperty("--py", (by * 12).toFixed(2) + "px");
-      requestAnimationFrame(loopB);
-    })();
+      if (Math.abs(tx - bx) > 0.001 || Math.abs(ty - by) > 0.001) {
+        bandRaf = requestAnimationFrame(loopB);
+      }
+    }
+    var bandIO = new IntersectionObserver(function (entries) {
+      bandIn = entries[0].isIntersecting;
+      if (!bandIn && bandRaf) { cancelAnimationFrame(bandRaf); bandRaf = 0; }
+      else if (bandIn && !bandRaf && (Math.abs(tx) > 0.001 || Math.abs(ty) > 0.001)) bandRaf = requestAnimationFrame(loopB);
+    }, { threshold: 0 });
+    bandIO.observe(band);
   }
 
   /* ============================================================
