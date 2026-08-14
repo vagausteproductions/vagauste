@@ -448,6 +448,11 @@ body.is-scrolling .header{
   -webkit-backdrop-filter:blur(4px);
   backdrop-filter:blur(4px);
 }
+/* real lensing (SVG displacement refraction) — active only while the backdrop is
+   static (hero film paused / off-screen): refraction needs a still scene to sample */
+body.liquid-glass-live .tabs{
+  backdrop-filter:url(#liquid-glass-filter) blur(16px) saturate(175%) brightness(1.12);
+}
 /* during scroll the glass turns mostly opaque so the section lines behind
    never show through unblurred — full liquid glass returns when idle */
 body.is-scrolling .tabs{
@@ -841,7 +846,7 @@ body.is-loaded .hero__meta{opacity:1}
     linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.01) 50%, rgba(255,255,255,.02) 100%);
   isolation:isolate;
   -webkit-backdrop-filter:blur(16px) saturate(175%) brightness(1.12); /* Safari — frosted */
-  backdrop-filter:url(#liquid-glass-filter) blur(16px) saturate(175%) brightness(1.12); /* Chrome — lensing */
+  backdrop-filter:blur(16px) saturate(175%) brightness(1.12);
   border:1px solid rgba(255,255,255,.30);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.55),   /* top rim — the light catches here */

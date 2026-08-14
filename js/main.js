@@ -171,6 +171,14 @@
      users stay paused) */
   if (heroFilm) {
     var heroFilmWasPlaying = false;
+    /* liquid glass lensing lives only over static backdrops: while the film rolls,
+       the displacement filter would re-render per video frame and halve the framerate */
+    var setLiquidLive = function () {
+      document.body.classList.toggle("liquid-glass-live", heroFilm.paused);
+    };
+    heroFilm.addEventListener("play", setLiquidLive);
+    heroFilm.addEventListener("pause", setLiquidLive);
+    setLiquidLive();
     var heroFilmIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         var v = en.target;
