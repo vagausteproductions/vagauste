@@ -246,7 +246,14 @@
   var journeyFill = $("#journeyFill");
   var journeyDot = $("#journeyDot");
   var bgGlow = $(".bg-glow");
-  var lastY = 0, scrollMax = 0, scrollTicking = false;
+  var lastY = 0, scrollMax = 0, scrollTicking = false, scrollIdleTimer = 0;
+  function markScrolling() {
+    document.body.classList.add("is-scrolling");
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer = setTimeout(function () {
+      document.body.classList.remove("is-scrolling");
+    }, 260);
+  }
   function cacheMetrics() {
     scrollMax = document.documentElement.scrollHeight - window.innerHeight;
   }
@@ -255,6 +262,7 @@
     scrollTicking = true;
     requestAnimationFrame(function () {
       scrollTicking = false;
+      markScrolling();
       var y = window.scrollY;
       if (y > lastY && y > 140) header.classList.add("is-hidden");
       else if (y < lastY - 6) header.classList.remove("is-hidden");
