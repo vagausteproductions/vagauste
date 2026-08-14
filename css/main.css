@@ -225,7 +225,7 @@ main{
 .cursor{
   position:fixed;left:0;top:0;width:16px;height:16px;border-radius:50%;
   border:1px solid rgba(242,242,240,.8);
-  transform:translate(-50%,-50%);
+  /* transform fully driven by JS: translate3d(cx,cy,0) translate(-50%,-50%) scale() — composited, zero layout */
   pointer-events:none;z-index:10000;display:grid;place-items:center;
   transition:width .3s var(--ease-out),height .3s var(--ease-out),opacity .3s,background-color .3s;
   mix-blend-mode:difference;
