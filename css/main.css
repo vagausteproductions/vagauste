@@ -874,21 +874,15 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .tabs i{font-style:normal;color:var(--grey-2)}
 .tabs__tab{position:relative;color:#f2f2f0;transition:color .3s;
   display:inline-flex;align-items:center;
-  margin-right:-.2em; /* cancel the trailing letter-space so glyphs center exactly (phone ls .2em) */
   text-shadow:
     0 0 6px rgba(242,242,240,.6),
     0 0 16px rgba(242,242,240,.3),
     0 0 34px rgba(242,242,240,.12);
 }
-/* optical balance — Cinematics (85px) is shorter than Photography (103px), so the left-side
-   gaps are slightly wider: the whole line stays symmetric around the centered BTS */
-.tabs__tab:nth-child(1), .tabs i:nth-child(2){margin-right:8px}
-.tabs__tab:nth-child(3){margin-left:-2.5px} /* trailing letter-space compensation — keeps BTS dead-center */
 /* separators — optically centered between labels: smaller, raised to the text mid-line */
 .tabs i{
   font-style:normal;font-size:.82em;line-height:1;
   display:inline-flex;align-items:center;
-  transform:translateY(-.12em);
   opacity:.75;color:rgba(242,242,240,.85);
 }
 .tabs__tab .nw{display:inline-block}
