@@ -60,7 +60,6 @@ em{font-style:italic}
     radial-gradient(ellipse 60% 34% at 50% 12%, rgba(255,255,255,.05), transparent 70%),
     radial-gradient(ellipse 42% 30% at 50% 78%, rgba(255,255,255,.035), transparent 70%),
     radial-gradient(ellipse 30% 22% at 50% 50%, rgba(255,255,255,.025), transparent 70%);
-  mix-blend-mode:screen;
   opacity:.9;
 }
 @keyframes grain{
@@ -197,7 +196,7 @@ main{
    ============================================================ */
 .bg-glow{
   position:fixed;left:0;right:0;top:0;height:300vh;z-index:100;
-  pointer-events:none;mix-blend-mode:screen;will-change:transform;
+  pointer-events:none;
   background:
     linear-gradient(180deg, transparent 0%, rgba(255,255,255,.045) 16%, rgba(255,255,255,.012) 28%, transparent 40%),
     radial-gradient(ellipse 55% 20% at 50% 22%, rgba(255,255,255,.06), transparent 70%);
