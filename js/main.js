@@ -592,9 +592,9 @@
         master.fromTo(el, { "--glow": 0.1 }, { "--glow": 0.55, duration: 0.35, ease: "sine.inOut" })
           .to(el, { "--glow": 0.1, duration: 1.4, ease: "sine.inOut" });
         master.eventCallback("onComplete", function () {
-          self._timers.push(gsap.delayedCall(rnd(1.4, 3.0), function () {
+          gsap.delayedCall(rnd(1.4, 3.0), function () {
             self._glassTube(el, { delay: 0 });
-          }));
+          });
         });
       },
       _tube: function (el, cfg) {
@@ -612,8 +612,7 @@
           .to(el, { opacity: 0.55, duration: 0.06 })
           .to(el, { opacity: 1.00, duration: 0.14, ease: "power2.out" });
         master.eventCallback("onComplete", function () {
-          self._timers.push(gsap.delayedCall(rnd(0.5, 1.2), cycle));
-        });
+          self._timers.push(gsap.delayedCall(rnd(0.5, 1.2), cycle));        });
         function cycle() {
           var tl = gsap.timeline({ defaults: { overwrite: "auto" } });
           var roll = Math.random();
