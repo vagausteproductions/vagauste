@@ -922,6 +922,7 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
   visibility:hidden;opacity:0;pointer-events:none;
   display:flex;justify-content:center;
   overflow-y:auto;
+  overscroll-behavior:contain; /* wheel stays inside the page — never chains to the background */
 }
 .page.is-open{visibility:visible;pointer-events:auto}
 .page__inner{
