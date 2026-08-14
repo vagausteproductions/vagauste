@@ -208,11 +208,30 @@ main{
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 88%,transparent 100%);
   transform:translate(-50%,-50%);
 }
-.hero,.index,.about,.connect{position:relative;z-index:1;background:var(--ink)}
+.hero,.index,.about,.connect,.story,.crew{position:relative;z-index:1;background:var(--ink)}
 .index{background:#0a0a0b}
 .band{background:#0b0b0c}
 .about{background:#09090a}
 .connect{background:#0a0a0b}
+
+/* ============================================================
+   STORY + CREW — landing sections (moved from overlay pages)
+   ============================================================ */
+.story,.crew{
+  position:relative;
+  padding:clamp(60px,10vh,120px) var(--pad);
+  border-top:1px solid var(--line);
+  background:var(--ink);
+  content-visibility:auto;contain-intrinsic-size:auto 900px;
+}
+.story__body{margin-top:clamp(28px,5vh,48px)}
+.story .page__lead{
+  max-width:60ch;
+  font-size:clamp(15px,1.25vw,19px);line-height:1.85;color:var(--grey);
+}
+.story .dis{margin-top:22px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey)}
+.crew .crew__note{margin-top:clamp(24px,4vh,40px)}
+.crew .page__grid--crew{margin-top:clamp(24px,4vh,40px)}
 
 /* ---------- custom cursor ---------- */
 .cursor{
