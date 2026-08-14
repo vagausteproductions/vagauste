@@ -684,7 +684,6 @@ body.is-loaded .hero__meta{opacity:1}
   background-image:url("../assets/img/grain.png");background-size:200px;
   opacity:.13;mix-blend-mode:overlay;
   transform:translate(calc(var(--px) * -2.4), calc(var(--py) * -2.4));
-  animation:grain 5s steps(10) infinite;
 }
 .band__halation{
   position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;
