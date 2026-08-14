@@ -914,7 +914,6 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     max-width:calc(100vw - 20px);
     gap:14px;padding:9px 14px; /* even rhythm: side gap = inter-label gap */
     font-size:8.5px;letter-spacing:.2em;
-    white-space:nowrap;
     /* stronger static glass — stays visible when backdrop-filter pauses during scroll on phones */
     background:
       linear-gradient(180deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,.06) 45%, rgba(255,255,255,.085) 100%);
