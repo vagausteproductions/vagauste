@@ -402,6 +402,7 @@
       prev.classList.remove("is-open");
       prev.setAttribute("aria-hidden", "true");
       gsap.set(prev, { opacity: 0 });
+      pauseBts();
     }
     if (currentPage === el) { closePage(); return; } /* toggle off */
     currentPage = el;
