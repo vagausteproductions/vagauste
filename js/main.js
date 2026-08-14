@@ -166,6 +166,27 @@
     heroFilm.pause();
     heroFilm.style.opacity = "0";
   }
+  /* gate the hero film — pause when the hero leaves the viewport,
+     resume on return ONLY if it was playing before (reduced-motion
+     users stay paused) */
+  if (heroFilm) {
+    var heroFilmWasPlaying = false;
+    var heroFilmIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          if (heroFilmWasPlaying && v.paused) {
+            var pr = v.play();
+            if (pr && pr.catch) pr.catch(function () {});
+          }
+        } else {
+          heroFilmWasPlaying = !v.paused;
+          v.pause();
+        }
+      });
+    }, { threshold: 0 });
+    heroFilmIO.observe(heroFilm);
+  }
   if (cursor && window.matchMedia("(hover:hover)").matches) {
     var cx = -100, cy = -100, mx = -100, my = -100, cursorRaf = 0;
     document.addEventListener("mousemove", function (e) {
@@ -199,6 +220,23 @@
         cursor.classList.remove("is-view", "is-hover");
       }
     });
+  }
+
+  /* ============================================================
+     2b. LENIS — smooth wheel scrolling (fine pointers only)
+     ============================================================ */
+  var lenis = null;
+  if (window.Lenis && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    lenis = new Lenis({
+      smoothWheel: true,
+      duration: 1.1,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      touchMultiplier: 1,
+      anchors: true
+    });
+    /* drive Lenis from GSAP's ticker so both share one rAF */
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
   }
 
   /* ============================================================
