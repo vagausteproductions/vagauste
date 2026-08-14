@@ -106,7 +106,11 @@
 
   <!-- ============ HERO — statement (milez.jp) ============ -->
   <section class="hero" id="hero">
-    <video class="hero__film" src="assets/img/hero-mist-graded.mp4" autoplay muted loop playsinline preload="auto" poster="assets/img/hero.jpg" aria-hidden="true"></video>
+    <video class="hero__film" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero.jpg" aria-hidden="true">
+      <source src="assets/img/hero-mist-av1.mp4" type='video/mp4; codecs="av01.0.08M.08"'>
+      <source src="assets/img/hero-mist-hevc.mp4" type='video/mp4; codecs="hvc1.1.6.L120.B0"'>
+      <source src="assets/img/hero-mist-graded.mp4" type="video/mp4">
+    </video>
     <div class="hero__meta">
       <span>Karachi — 24.86° N</span>
     </div>
@@ -181,12 +185,36 @@
     </div>
 
     <div class="index__preview" id="indexPreview" aria-hidden="true">
-      <img src="assets/img/work-01.jpg" alt="" decoding="async">
-      <img src="assets/img/work-02.jpg" alt="" loading="lazy" decoding="async">
-      <img src="assets/img/work-03.jpg" alt="" loading="lazy" decoding="async">
-      <img src="assets/img/work-04.jpg" alt="" loading="lazy" decoding="async">
-      <img src="assets/img/work-05.jpg" alt="" loading="lazy" decoding="async">
-      <img src="assets/img/work-06.jpg" alt="" loading="lazy" decoding="async">
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-01.avif">
+  <source type="image/webp" srcset="assets/img/work-01.webp">
+<img src="assets/img/work-01.jpg" alt="" decoding="async">
+</picture>
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-02.avif">
+  <source type="image/webp" srcset="assets/img/work-02.webp">
+<img src="assets/img/work-02.jpg" alt="" loading="lazy" decoding="async">
+</picture>
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-03.avif">
+  <source type="image/webp" srcset="assets/img/work-03.webp">
+<img src="assets/img/work-03.jpg" alt="" loading="lazy" decoding="async">
+</picture>
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-04.avif">
+  <source type="image/webp" srcset="assets/img/work-04.webp">
+<img src="assets/img/work-04.jpg" alt="" loading="lazy" decoding="async">
+</picture>
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-05.avif">
+  <source type="image/webp" srcset="assets/img/work-05.webp">
+<img src="assets/img/work-05.jpg" alt="" loading="lazy" decoding="async">
+</picture>
+      <picture>
+  <source type="image/avif" srcset="assets/img/work-06.avif">
+  <source type="image/webp" srcset="assets/img/work-06.webp">
+<img src="assets/img/work-06.jpg" alt="" loading="lazy" decoding="async">
+</picture>
       <span class="index__preview__cat" id="previewCat"></span>
     </div>
   </section>
@@ -194,7 +222,11 @@
   <!-- ============ MEDIA BAND — one 16mm frame ============ -->
   <section class="band">
     <div class="band__img">
-      <img src="assets/img/studio.jpg" alt="Inside the Vagausté studio" loading="lazy" decoding="async" data-parallax loading="lazy" decoding="async">
+      <picture>
+  <source type="image/avif" srcset="assets/img/studio.avif">
+  <source type="image/webp" srcset="assets/img/studio.webp">
+<img src="assets/img/studio.jpg" alt="Inside the Vagausté studio" loading="lazy" decoding="async" data-parallax loading="lazy" decoding="async">
+</picture>
       <div class="band__halation" aria-hidden="true"></div>
     </div>
     <div class="band__cap">
@@ -308,14 +340,46 @@
       <p class="page__desc">Stills from the set and the streets — all monochrome, all film-state.</p>
     </header>
     <div class="page__grid">
-      <figure class="page__fig"><img src="assets/img/work-01.jpg" alt="Untitled" loading="lazy" decoding="async"><figcaption>Untitled — 2025</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/work-02.jpg" alt="Shadows" loading="lazy" decoding="async"><figcaption>Shadows — 2025</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/work-03.jpg" alt="Nocturne" loading="lazy" decoding="async"><figcaption>Nocturne — 2024</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/work-04.jpg" alt="Still / Life" loading="lazy" decoding="async"><figcaption>Still / Life — 2024</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/work-05.jpg" alt="Monsoon" loading="lazy" decoding="async"><figcaption>Monsoon — 2024</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/work-06.jpg" alt="Freq" loading="lazy" decoding="async"><figcaption>Freq — 2023</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/studio.jpg" alt="The studio" loading="lazy" decoding="async"><figcaption>The Studio — Karachi</figcaption></figure>
-      <figure class="page__fig"><img src="assets/img/hero.jpg" alt="On set" loading="lazy" decoding="async"><figcaption>On set — 2025</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-01.avif">
+  <source type="image/webp" srcset="assets/img/work-01.webp">
+<img src="assets/img/work-01.jpg" alt="Untitled" loading="lazy" decoding="async">
+</picture><figcaption>Untitled — 2025</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-02.avif">
+  <source type="image/webp" srcset="assets/img/work-02.webp">
+<img src="assets/img/work-02.jpg" alt="Shadows" loading="lazy" decoding="async">
+</picture><figcaption>Shadows — 2025</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-03.avif">
+  <source type="image/webp" srcset="assets/img/work-03.webp">
+<img src="assets/img/work-03.jpg" alt="Nocturne" loading="lazy" decoding="async">
+</picture><figcaption>Nocturne — 2024</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-04.avif">
+  <source type="image/webp" srcset="assets/img/work-04.webp">
+<img src="assets/img/work-04.jpg" alt="Still / Life" loading="lazy" decoding="async">
+</picture><figcaption>Still / Life — 2024</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-05.avif">
+  <source type="image/webp" srcset="assets/img/work-05.webp">
+<img src="assets/img/work-05.jpg" alt="Monsoon" loading="lazy" decoding="async">
+</picture><figcaption>Monsoon — 2024</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/work-06.avif">
+  <source type="image/webp" srcset="assets/img/work-06.webp">
+<img src="assets/img/work-06.jpg" alt="Freq" loading="lazy" decoding="async">
+</picture><figcaption>Freq — 2023</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/studio.avif">
+  <source type="image/webp" srcset="assets/img/studio.webp">
+<img src="assets/img/studio.jpg" alt="The studio" loading="lazy" decoding="async">
+</picture><figcaption>The Studio — Karachi</figcaption></figure>
+      <figure class="page__fig"><picture>
+  <source type="image/avif" srcset="assets/img/hero.avif">
+  <source type="image/webp" srcset="assets/img/hero.webp">
+<img src="assets/img/hero.jpg" alt="On set" loading="lazy" decoding="async">
+</picture><figcaption>On set — 2025</figcaption></figure>
     </div>
   </div>
 </div>
@@ -351,22 +415,38 @@
     <div class="page__grid page__grid--crew" id="crewGrid">
       <figure class="page__fig">
         <span class="crew__sig">Crew 01</span>
-        <img src="assets/img/crew/crew-01.jpg" alt="Crew 01/04" loading="lazy" decoding="async">
+        <picture>
+  <source type="image/avif" srcset="assets/img/crew/crew-01.avif">
+  <source type="image/webp" srcset="assets/img/crew/crew-01.webp">
+<img src="assets/img/crew/crew-01.jpg" alt="Crew 01/04" loading="lazy" decoding="async">
+</picture>
         <figcaption>Crew 01/04</figcaption>
       </figure>
       <figure class="page__fig">
         <span class="crew__sig">Crew 02</span>
-        <img src="assets/img/crew/crew-02.jpg" alt="Crew 02/04" loading="lazy" decoding="async">
+        <picture>
+  <source type="image/avif" srcset="assets/img/crew/crew-02.avif">
+  <source type="image/webp" srcset="assets/img/crew/crew-02.webp">
+<img src="assets/img/crew/crew-02.jpg" alt="Crew 02/04" loading="lazy" decoding="async">
+</picture>
         <figcaption>Crew 02/04</figcaption>
       </figure>
       <figure class="page__fig">
         <span class="crew__sig">Crew 03</span>
-        <img src="assets/img/crew/crew-03.jpg" alt="Crew 03/04" loading="lazy" decoding="async">
+        <picture>
+  <source type="image/avif" srcset="assets/img/crew/crew-03.avif">
+  <source type="image/webp" srcset="assets/img/crew/crew-03.webp">
+<img src="assets/img/crew/crew-03.jpg" alt="Crew 03/04" loading="lazy" decoding="async">
+</picture>
         <figcaption>Crew 03/04</figcaption>
       </figure>
       <figure class="page__fig">
         <span class="crew__sig">Crew 04</span>
-        <img src="assets/img/crew/crew-04.jpg" alt="Crew 04/04" loading="lazy" decoding="async">
+        <picture>
+  <source type="image/avif" srcset="assets/img/crew/crew-04.avif">
+  <source type="image/webp" srcset="assets/img/crew/crew-04.webp">
+<img src="assets/img/crew/crew-04.jpg" alt="Crew 04/04" loading="lazy" decoding="async">
+</picture>
         <figcaption>Crew 04/04</figcaption>
       </figure>
     </div>
@@ -405,23 +485,43 @@
         </div>
         <div class="page__grid page__grid--sheet">
           <figure class="page__fig">
-            <img src="assets/img/hero.jpg" alt="On set — Karachi" loading="lazy" decoding="async">
+            <picture>
+  <source type="image/avif" srcset="assets/img/hero.avif">
+  <source type="image/webp" srcset="assets/img/hero.webp">
+<img src="assets/img/hero.jpg" alt="On set — Karachi" loading="lazy" decoding="async">
+</picture>
             <figcaption>On set — Karachi</figcaption>
           </figure>
           <figure class="page__fig">
-            <img src="assets/img/studio.jpg" alt="Inside the Vagausté studio" loading="lazy" decoding="async">
+            <picture>
+  <source type="image/avif" srcset="assets/img/studio.avif">
+  <source type="image/webp" srcset="assets/img/studio.webp">
+<img src="assets/img/studio.jpg" alt="Inside the Vagausté studio" loading="lazy" decoding="async">
+</picture>
             <figcaption>The Studio — Karachi</figcaption>
           </figure>
           <figure class="page__fig">
-            <img src="assets/img/work-01.jpg" alt="Frame from Untitled — 2025" loading="lazy" decoding="async">
+            <picture>
+  <source type="image/avif" srcset="assets/img/work-01.avif">
+  <source type="image/webp" srcset="assets/img/work-01.webp">
+<img src="assets/img/work-01.jpg" alt="Frame from Untitled — 2025" loading="lazy" decoding="async">
+</picture>
             <figcaption>Frame — Untitled · 2025</figcaption>
           </figure>
           <figure class="page__fig">
-            <img src="assets/img/work-03.jpg" alt="Frame from Nocturne — 2024" loading="lazy" decoding="async">
+            <picture>
+  <source type="image/avif" srcset="assets/img/work-03.avif">
+  <source type="image/webp" srcset="assets/img/work-03.webp">
+<img src="assets/img/work-03.jpg" alt="Frame from Nocturne — 2024" loading="lazy" decoding="async">
+</picture>
             <figcaption>Frame — Nocturne · 2024</figcaption>
           </figure>
           <figure class="page__fig">
-            <img src="assets/img/work-05.jpg" alt="Frame from Monsoon — 2024" loading="lazy" decoding="async">
+            <picture>
+  <source type="image/avif" srcset="assets/img/work-05.avif">
+  <source type="image/webp" srcset="assets/img/work-05.webp">
+<img src="assets/img/work-05.jpg" alt="Frame from Monsoon — 2024" loading="lazy" decoding="async">
+</picture>
             <figcaption>Frame — Monsoon · 2024</figcaption>
           </figure>
           <figure class="page__fig page__fig--empty">
