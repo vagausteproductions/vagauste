@@ -1016,7 +1016,6 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     0 0 12px rgba(242,242,240,.38),
     0 0 34px rgba(242,242,240,.20),
     0 0 80px rgba(242,242,240,.10);
-  will-change:opacity;
 }
 .hero__title .nw{display:inline-block}
 .hero__title em{
