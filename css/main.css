@@ -883,6 +883,7 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 /* optical balance — Cinematics (85px) is shorter than Photography (103px), so the left-side
    gaps are slightly wider: the whole line stays symmetric around the centered BTS */
 .tabs__tab:nth-child(1), .tabs i:nth-child(2){margin-right:8px}
+.tabs__tab:nth-child(3){margin-left:-2.5px} /* trailing letter-space compensation — keeps BTS dead-center */
 /* separators — optically centered between labels: smaller, raised to the text mid-line */
 .tabs i{
   font-style:normal;font-size:.82em;line-height:1;
