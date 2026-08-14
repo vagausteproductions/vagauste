@@ -835,9 +835,10 @@ body.is-loaded .hero__meta{opacity:1}
   display:flex;align-items:center;justify-content:center;gap:10px;
   line-height:1; /* uniform line boxes — labels + separators sit on one exact axis */
   padding:9px 14px;border-radius:100px;
-  /* iOS 27 liquid glass — bright, refractive, reflects whatever passes behind in real time */
+  /* iOS 27 liquid glass — TOTALLY CLEAR, no tint: the glass look comes from the
+     backdrop blur + brightness/saturation boost + edge lights, exactly like iOS */
   background:
-    linear-gradient(180deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.06) 45%, rgba(255,255,255,.035) 100%);
+    linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.01) 50%, rgba(255,255,255,.02) 100%);
   -webkit-backdrop-filter:blur(22px) saturate(185%) brightness(1.18);
   backdrop-filter:blur(22px) saturate(185%) brightness(1.18);
   border:1px solid rgba(255,255,255,.30);
@@ -912,10 +913,10 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     gap:16px;padding:9px 44px; /* wide beam — uniform rhythm, cluster centered */
     font-size:8.5px;letter-spacing:.2em;
     white-space:nowrap;
-    /* liquid glass static fallback — slightly stronger so the pill stays bright when
+    /* clear-glass fallback — barely-there tint so the pill stays visible when
        backdrop-filter pauses during scroll on phones */
     background:
-      linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.08) 45%, rgba(255,255,255,.05) 100%);
+      linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.03) 45%, rgba(255,255,255,.04) 100%);
     border-color:rgba(255,255,255,.36);
   }
 }
