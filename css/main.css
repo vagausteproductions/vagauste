@@ -142,10 +142,7 @@ main{
     0 0 26px rgba(242,242,240,.14),
     0 0 60px rgba(242,242,240,.07);
 }
-/* body text — soft glow, readable */
-.hero__tag,.about__body p,.cell .v,.proj__cat,.proj__year,.eyebrow,.count,.nav a,.hero__meta,.band__cap,.footer,.stat__label,.dis__desc,.contact__cell .v{
-  text-shadow:0 0 8px rgba(242,242,240,.12);
-}
+/* body text — soft glow removed per design direction (no label decoration behind text) */
 /* ============================================================
    WORD GLOW — light-bulb flicker (never off, always breathing)
    ============================================================ */
@@ -450,6 +447,12 @@ main{
 body.is-scrolling .header{
   -webkit-backdrop-filter:blur(4px);
   backdrop-filter:blur(4px);
+}
+/* during scroll the glass tab turns mostly opaque so the section lines behind
+   never show through unblurred — full mirror glass returns when idle */
+body.is-scrolling .tabs{
+  background:
+    linear-gradient(180deg, rgba(38,38,44,.58) 0%, rgba(20,20,24,.66) 100%);
 }
 .header.is-hidden{transform:translateY(-110%)}
 .brand{
