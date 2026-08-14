@@ -164,9 +164,9 @@ main{
   72%{text-shadow:0 0 11px rgba(242,242,240,.5),0 0 30px rgba(242,242,240,.26),0 0 64px rgba(242,242,240,.12)}
   88%{text-shadow:0 0 8px rgba(242,242,240,.38),0 0 22px rgba(242,242,240,.19),0 0 48px rgba(242,242,240,.09)}
 }
-.glow{animation:glowPulse 3.8s ease-in-out infinite}
-.glow-2{animation:glowPulse 4.6s ease-in-out infinite;animation-delay:-1.4s}
-.glow-3{animation:glowPulse 5.4s ease-in-out infinite;animation-delay:-2.6s}
+.glow{animation:none;text-shadow:0 0 11px rgba(242,242,240,.5),0 0 30px rgba(242,242,240,.26),0 0 64px rgba(242,242,240,.12)}
+.glow-2{animation:none;text-shadow:0 0 11px rgba(242,242,240,.5),0 0 30px rgba(242,242,240,.26),0 0 64px rgba(242,242,240,.12)}
+.glow-3{animation:none;text-shadow:0 0 11px rgba(242,242,240,.5),0 0 30px rgba(242,242,240,.26),0 0 64px rgba(242,242,240,.12)}
 
 /* ============================================================
    SCROLL JOURNEY — the line that travels with you
