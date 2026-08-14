@@ -149,6 +149,10 @@
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
+    /* free the intro layers once the fade completes */
+    setTimeout(function () {
+      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+    }, 900);
     startReveals();
   }
 
@@ -634,7 +638,7 @@
               .to(el, { opacity: 1, duration: rnd(0.12, 0.22), ease: "power1.out" });
           }
           tl.eventCallback("onComplete", function () {
-            self._timers.push(gsap.delayedCall(rnd(0.9, 2.0) / ageFactor, cycle));
+            gsap.delayedCall(rnd(0.9, 2.0) / ageFactor, cycle);
           });
         }
       }
