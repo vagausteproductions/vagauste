@@ -835,19 +835,19 @@ body.is-loaded .hero__meta{opacity:1}
   display:flex;align-items:center;justify-content:center;gap:10px;
   line-height:1; /* uniform line boxes — labels + separators sit on one exact axis */
   padding:9px 14px;border-radius:100px;
-  /* mirror glass — clear but never black: white sheen gradient keeps it visible on any backdrop */
+  /* iOS 27 liquid glass — bright, refractive, reflects whatever passes behind in real time */
   background:
-    linear-gradient(180deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.045) 45%, rgba(255,255,255,.065) 100%);
-  -webkit-backdrop-filter:blur(24px);
-  backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,.28);
+    linear-gradient(180deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.06) 45%, rgba(255,255,255,.035) 100%);
+  -webkit-backdrop-filter:blur(22px) saturate(185%) brightness(1.18);
+  backdrop-filter:blur(22px) saturate(185%) brightness(1.18);
+  border:1px solid rgba(255,255,255,.30);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.45),
-    inset 1px 0 0 rgba(255,255,255,.15),
+    inset 0 1px 0 rgba(255,255,255,.55),   /* top rim — the light catches here */
+    inset 1px 0 0 rgba(255,255,255,.16),
     inset -1px 0 0 rgba(255,255,255,.10),
-    inset 0 -1px 0 rgba(255,255,255,.25),
-    inset 0 -3px 8px rgba(255,255,255,.07),
-    0 12px 40px rgba(0,0,0,.35);
+    inset 0 -1px 0 rgba(255,255,255,.12),
+    0 2px 6px rgba(0,0,0,.25),             /* contact shadow — the glass floats */
+    0 14px 44px rgba(0,0,0,.40);           /* deep soft shadow */
   font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#bcbcb6;
   -webkit-user-select:none;user-select:none;
   opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out);
@@ -857,18 +857,23 @@ body.is-loaded .hero__meta{opacity:1}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
 .tabs:hover .tabs__tab{text-shadow:none}
-/* liquid glass texture — mirror reflections: top specular, diagonal streak, bottom bounce */
+/* liquid glass — moving light sweep (transform-only, compositor-friendly; iOS 27 feel) */
 .tabs::before{
-  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:
-    linear-gradient(115deg, transparent 15%, rgba(255,255,255,.22) 35%, rgba(255,255,255,.06) 46%, transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.26) 0%, rgba(255,255,255,.07) 26%, transparent 50%);
+  content:"";position:absolute;top:0;bottom:0;left:-60%;width:220%;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(100deg, transparent 40%, rgba(255,255,255,.10) 46%, rgba(255,255,255,.20) 50%, rgba(255,255,255,.10) 54%, transparent 60%);
+  animation:glassSweep 9s ease-in-out infinite alternate;
 }
+@keyframes glassSweep{
+  from{transform:translateX(-20%)}
+  to{transform:translateX(20%)}
+}
+@media (prefers-reduced-motion: reduce){.tabs::before{animation:none}}
+/* liquid glass — static diagonal band + bottom bounce */
 .tabs::after{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(0deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.04) 28%, transparent 45%);
-  -webkit-mask-image:linear-gradient(180deg, transparent 40%, #000 100%);
-  mask-image:linear-gradient(180deg, transparent 40%, #000 100%);
+  background:
+    linear-gradient(115deg, transparent 18%, rgba(255,255,255,.15) 33%, rgba(255,255,255,.05) 45%, transparent 62%),
+    linear-gradient(0deg, rgba(255,255,255,.10) 0%, transparent 42%);
 }
 body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .tabs i{font-style:normal;color:var(--grey-2)}
