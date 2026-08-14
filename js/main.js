@@ -357,6 +357,10 @@
     document.body.classList.add("is-locked");
     el.classList.add("is-open");
     el.setAttribute("aria-hidden", "false");
+    if (name === "bts") {
+      var btsVideo = el.querySelector("video");
+      if (btsVideo && btsVideo.paused) btsVideo.play();
+    }
     gsap.set(el, { opacity: 0 });
     gsap.to(el, { opacity: 1, duration: 0.45, ease: "power2.out" });
     gsap.fromTo(el.querySelector(".page__inner"),
