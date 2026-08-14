@@ -163,18 +163,22 @@
     heroFilm.style.opacity = "0";
   }
   if (cursor && window.matchMedia("(hover:hover)").matches) {
-    var cx = -100, cy = -100, mx = -100, my = -100;
+    var cx = -100, cy = -100, mx = -100, my = -100, cursorRaf = 0;
     document.addEventListener("mousemove", function (e) {
       mx = e.clientX; my = e.clientY;
       cursor.style.opacity = "1";
+      if (!cursorRaf) cursorRaf = requestAnimationFrame(loop);
     });
-    (function loop() {
+    function loop() {
+      cursorRaf = 0;
       cx += (mx - cx) * 0.18;
       cy += (my - cy) * 0.18;
       cursor.style.left = cx + "px";
       cursor.style.top = cy + "px";
-      requestAnimationFrame(loop);
-    })();
+      if (Math.abs(mx - cx) > 0.5 || Math.abs(my - cy) > 0.5) {
+        cursorRaf = requestAnimationFrame(loop);
+      }
+    }
     document.addEventListener("mousedown", function () { cursor.classList.add("is-down"); });
     document.addEventListener("mouseup", function () { cursor.classList.remove("is-down"); });
     document.addEventListener("mouseover", function (e) {
@@ -194,26 +198,28 @@
   var journeyFill = $("#journeyFill");
   var journeyDot = $("#journeyDot");
   var bgGlow = $(".bg-glow");
-  var ghosts = $$(".ghost");
-  var lastY = 0;
+  var lastY = 0, scrollMax = 0, scrollTicking = false;
+  function cacheMetrics() {
+    scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+  }
   function onScroll() {
-    var y = window.scrollY;
-    if (y > lastY && y > 140) header.classList.add("is-hidden");
-    else if (y < lastY - 6) header.classList.remove("is-hidden");
-    lastY = y;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var p = max > 0 ? y / max : 0;
-    journeyFill.style.transform = "scaleY(" + p + ")";
-    journeyDot.style.top = (p * 100) + "%";
-    bgGlow.style.transform = "translate3d(0," + (-y * 0.3) + "px,0)";
-    ghosts.forEach(function (g) {
-      var r = g.parentElement.getBoundingClientRect();
-      var mid = r.top + r.height / 2 - window.innerHeight / 2;
-      var off = Math.max(-90, Math.min(90, mid * -0.12));
-      g.style.transform = "translate3d(0," + off + "px,0)";
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(function () {
+      scrollTicking = false;
+      var y = window.scrollY;
+      if (y > lastY && y > 140) header.classList.add("is-hidden");
+      else if (y < lastY - 6) header.classList.remove("is-hidden");
+      lastY = y;
+      var p = scrollMax > 0 ? y / scrollMax : 0;
+      journeyFill.style.transform = "scaleY(" + p + ")";
+      journeyDot.style.top = (p * 100) + "%";
+      bgGlow.style.transform = "translate3d(0," + (-y * 0.3) + "px,0)";
     });
   }
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", cacheMetrics);
+  cacheMetrics();
   onScroll();
 
   /* ============================================================
