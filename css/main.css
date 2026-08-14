@@ -642,8 +642,10 @@ body.is-loaded .hero__meta{opacity:1}
   width:min(250px,22vw);aspect-ratio:4/3;
   pointer-events:none;z-index:5;
   opacity:0;transform:scale(.95);
-  will-change:transform,opacity;
 }
+/* compositor layer only while the user is actually hovering the index —
+   no permanent pinned layer when idle (JS drives x/y/scale via gsap.quickTo) */
+.index:hover .index__preview{will-change:transform,opacity}
 .index__preview::before{
   content:"";position:absolute;inset:-24%;z-index:-1;
   background:radial-gradient(circle, rgba(242,242,240,.2), transparent 65%);
