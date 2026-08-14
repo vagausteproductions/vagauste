@@ -411,7 +411,10 @@
     el.setAttribute("aria-hidden", "false");
     if (name === "bts") {
       var btsVideo = el.querySelector("video");
-      if (btsVideo && btsVideo.paused) btsVideo.play();
+      if (btsVideo && btsVideo.paused) {
+        var btsPlay = btsVideo.play();
+        if (btsPlay && btsPlay.catch) btsPlay.catch(function () {});
+      }
     }
     gsap.set(el, { opacity: 0 });
     gsap.to(el, { opacity: 1, duration: 0.45, ease: "power2.out" });
