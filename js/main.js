@@ -183,8 +183,14 @@
         cursorRaf = requestAnimationFrame(loop);
       }
     }
-    document.addEventListener("mousedown", function () { cursor.classList.add("is-down"); });
-    document.addEventListener("mouseup", function () { cursor.classList.remove("is-down"); });
+    document.addEventListener("mousedown", function () {
+      cursor.classList.add("is-down");
+      if (!cursorRaf) cursorRaf = requestAnimationFrame(loop);
+    });
+    document.addEventListener("mouseup", function () {
+      cursor.classList.remove("is-down");
+      if (!cursorRaf) cursorRaf = requestAnimationFrame(loop);
+    });
     document.addEventListener("mouseover", function (e) {
       var t = e.target.closest("a, button, .proj");
       if (t) {
