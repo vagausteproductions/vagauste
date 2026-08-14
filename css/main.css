@@ -880,8 +880,9 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     0 0 16px rgba(242,242,240,.3),
     0 0 34px rgba(242,242,240,.12);
 }
-/* side cells — Cinematics + BTS hug the centered Photography label */
-.tabs__side{display:flex;align-items:center;gap:10px}
+/* side cells — Cinematics + BTS hug the centered Photography label; equal min-width keeps the
+   middle column dead-centered regardless of content widths (Cinematics 85px vs BTS 26px) */
+.tabs__side{display:flex;align-items:center;gap:10px;min-width:100px}
 .tabs__side--l{justify-content:flex-end}
 .tabs__side--r{justify-content:flex-start}
 /* separators — optically centered between labels: smaller, raised to the text mid-line */
