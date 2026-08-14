@@ -404,6 +404,8 @@
   function openPage(name) {
     var el = $("#page" + name.charAt(0).toUpperCase() + name.slice(1));
     if (!el) return;
+    /* page overlay open — freeze the background scroll (Lenis + native) */
+    if (lenis) lenis.stop();
     if (currentPage && currentPage !== el) { /* tab switch: close instantly, open the new one */
       var prev = currentPage;
       currentPage = null;
