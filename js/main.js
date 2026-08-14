@@ -229,7 +229,7 @@
   if (window.Lenis && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
     lenis = new Lenis({
       smoothWheel: true,
-      duration: 1.1,
+      duration: 0.85,
       easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
       touchMultiplier: 1,
       anchors: true

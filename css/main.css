@@ -39,27 +39,20 @@ em{font-style:italic}
 /* ============================================================
    16mm FILM LAYER — grain · bloom · halation · vignette
    ============================================================ */
-.fx{position:fixed;inset:0;pointer-events:none;z-index:9500}
-.fx-grain{
-  background-image:url("../assets/img/grain-64.png");
-  background-size:64px;opacity:.09; /* static — no movement; 64px tile = 239KB→2.3KB, same noise spectrum */
-}
-.fx-scan{
-  background:repeating-linear-gradient(0deg,
-    rgba(0,0,0,.16) 0px, rgba(0,0,0,.16) 1px,
-    transparent 1px, transparent 3px);
-  opacity:.16;
-}
-.fx-vig{
-  background:radial-gradient(ellipse at center, transparent 44%, rgba(0,0,0,.4) 90%, rgba(0,0,0,.62) 100%);
-}
-/* projector halation — static soft blooms (no breathing: that read as a dark layer from the top) */
-.fx-bloom{
-  background:
-    radial-gradient(ellipse 60% 34% at 50% 12%, rgba(255,255,255,.05), transparent 70%),
-    radial-gradient(ellipse 42% 30% at 50% 78%, rgba(255,255,255,.035), transparent 70%),
-    radial-gradient(ellipse 30% 22% at 50% 50%, rgba(255,255,255,.025), transparent 70%);
-  opacity:.9;
+.fx{
+  position:fixed;inset:0;pointer-events:none;z-index:9500;
+  /* merged 16mm stack — one layer instead of four (bloom on top, grain at the bottom).
+     alphas pre-baked (incl. the old element opacities .9 / .16 / .09) — pixel-identical */
+  background-image:
+    radial-gradient(ellipse 60% 34% at 50% 12%, rgba(255,255,255,.045), transparent 70%),
+    radial-gradient(ellipse 42% 30% at 50% 78%, rgba(255,255,255,.0315), transparent 70%),
+    radial-gradient(ellipse 30% 22% at 50% 50%, rgba(255,255,255,.0225), transparent 70%),
+    radial-gradient(ellipse at center, transparent 44%, rgba(0,0,0,.4) 90%, rgba(0,0,0,.62) 100%),
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.0256) 0px, rgba(0,0,0,.0256) 1px,
+      transparent 1px, transparent 3px),
+    url("../assets/img/grain-64-baked.png");
+  background-size:auto,auto,auto,auto,auto,64px;
 }
 @keyframes grain{
   0%,100%{transform:translate(0,0)}
