@@ -41,7 +41,6 @@ em{font-style:italic}
    ============================================================ */
 .fx{position:fixed;inset:0;pointer-events:none;z-index:9500}
 .fx-grain{
-  inset:-50%;width:200%;height:200%;
   background-image:url("../assets/img/grain.png");
   background-size:256px;opacity:.09; /* static — no movement */
 }
@@ -254,6 +253,7 @@ main{
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
 .preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.preloader.is-done *{will-change:auto} /* free compositor layers after the intro */
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,
