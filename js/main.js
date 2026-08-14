@@ -612,7 +612,8 @@
           .to(el, { opacity: 0.55, duration: 0.06 })
           .to(el, { opacity: 1.00, duration: 0.14, ease: "power2.out" });
         master.eventCallback("onComplete", function () {
-          self._timers.push(gsap.delayedCall(rnd(0.5, 1.2), cycle));        });
+          gsap.delayedCall(rnd(0.5, 1.2), cycle);
+        });
         function cycle() {
           var tl = gsap.timeline({ defaults: { overwrite: "auto" } });
           var roll = Math.random();
