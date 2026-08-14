@@ -880,6 +880,9 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     0 0 16px rgba(242,242,240,.3),
     0 0 34px rgba(242,242,240,.12);
 }
+/* optical balance — Cinematics (85px) is shorter than Photography (103px), so the left-side
+   gaps are slightly wider: the whole line stays symmetric around the centered BTS */
+.tabs__tab:nth-child(1), .tabs i:nth-child(2){margin-right:8px}
 /* separators — optically centered between labels: smaller, raised to the text mid-line */
 .tabs i{
   font-style:normal;font-size:.82em;line-height:1;
@@ -900,7 +903,8 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 @media (min-width:821px){
   /* desktop glass bar — 20% larger proportionally + slight side stretch, then widened +25% total
      with the label rhythm spread to match (gap 18px, generous horizontal padding) */
-  .tabs{font-size:calc(8.5px * 1.2);letter-spacing:calc(.2em * 1.2);gap:20px;padding:calc(9px * 1.2) 30px}
+  .tabs{font-size:calc(8.5px * 1.2);letter-spacing:calc(.2em * 1.2);gap:20px;padding:calc(9px * 1.2) 38px}
+  .tabs__tab:nth-child(1), .tabs i:nth-child(2){margin-right:9px} /* optical balance (desktop) */
   .tabs__tab{margin-right:-.24em} /* cancel trailing letter-space (desktop ls .24em) — even rhythm */
 }
 @media (max-width:820px){
