@@ -900,15 +900,14 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 @media (min-width:821px){
   /* desktop glass bar — 20% larger proportionally + slight side stretch, then widened +25% total
      with the label rhythm spread to match (gap 18px, generous horizontal padding) */
-  .tabs{font-size:calc(8.5px * 1.2);letter-spacing:calc(.2em * 1.2);gap:18px;padding:calc(9px * 1.2) 18px}
-  .tabs__side{gap:18px}
+  .tabs{font-size:calc(8.5px * 1.2);letter-spacing:calc(.2em * 1.2);gap:20px;padding:calc(9px * 1.2) 30px}
   .tabs__tab{margin-right:-.24em} /* cancel trailing letter-space (desktop ls .24em) — even rhythm */
 }
 @media (max-width:820px){
   .tabs{
     bottom:calc(env(safe-area-inset-bottom,0px) + 36px);
     max-width:calc(100vw - 20px);
-    gap:14px;padding:9px 14px; /* even rhythm: side gap = inter-label gap */
+    gap:16px;padding:9px 24px; /* stretched beam — whole text block centered as one unit */
     font-size:8.5px;letter-spacing:.2em;
     white-space:nowrap;
     /* stronger static glass — stays visible when backdrop-filter pauses during scroll on phones */
