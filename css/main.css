@@ -237,9 +237,7 @@ main{
   color:var(--ink);opacity:0;transition:opacity .25s;font-weight:400;
 }
 .cursor.is-hover{width:44px;height:44px}
-.cursor.is-view{width:88px;height:88px;background:rgba(242,242,240,.92)}
-.cursor.is-view .cursor-label{opacity:1}
-.cursor.is-down{transform:translate(-50%,-50%) scale(.8)}
+.cursor.is-view{width:88px;height:88px;background:rgba(242,242,240,.92)}ckground:rgba(242,242,240,.92)}
 @media (hover:none),(pointer:coarse){.cursor{display:none}}
 
 /* ============================================================
