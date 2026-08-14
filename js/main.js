@@ -431,6 +431,7 @@
     if (!currentPage) return;
     var el = currentPage;
     currentPage = null;
+    pauseBts();
     $$(".tabs__tab").forEach(function (t) { t.classList.remove("is-active"); });
     gsap.to(el, { opacity: 0, duration: 0.35, ease: "power2.out", onComplete: function () {
       el.classList.remove("is-open");
