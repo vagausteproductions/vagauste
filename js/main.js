@@ -720,6 +720,11 @@
      10. GO
      ============================================================ */
   window.addEventListener("DOMContentLoaded", function () {
+    /* reduced-motion: stop the liquid-glass turbulence breathing */
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var anim = document.querySelector("#liquid-glass-filter animate");
+      if (anim) anim.remove();
+    }
     setTimeout(runIntro, 350);
   });
   /* safety: never trap the user */
