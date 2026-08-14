@@ -876,7 +876,7 @@ body.is-loaded .hero__meta{opacity:1}
 }
 @media (prefers-reduced-motion: reduce){.tabs::before{animation:none}}
 /* liquid glass — chromatic edge lights: red/cyan fringe + white top rim + bottom
-   glow, blended screen so they brighten without adding tint (Apple's edge light) */
+   glow (plain alpha — blend modes over a playing film re-blend every frame) */
 .tabs::after{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   z-index:3;
@@ -885,7 +885,6 @@ body.is-loaded .hero__meta{opacity:1}
     inset -1px 0 rgba(54,226,255,.22),
     inset 0 1px rgba(255,255,255,.5),
     inset 0 -18px 32px rgba(255,255,255,.08);
-  mix-blend-mode:screen;
 }
 body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .tabs i{font-style:normal;color:var(--grey-2)}
