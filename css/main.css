@@ -462,7 +462,7 @@ main{
 }
 .neg-btn:hover{border-color:#fff;background:#fff}
 .neg-btn[aria-pressed="true"]{background:#f2f2f0;color:#070707;border-color:#f2f2f0}
-html{transition:filter .6s ease}
+html{transition:filter .2s ease}
 html.is-negative{filter:invert(1) hue-rotate(180deg)}
 .nav a{color:#bcbcb6;transition:color .3s,text-shadow .3s}
 .nav a:hover{color:var(--paper);text-shadow:0 0 18px rgba(242,242,240,.8)}
