@@ -448,11 +448,11 @@ body.is-scrolling .header{
   -webkit-backdrop-filter:blur(4px);
   backdrop-filter:blur(4px);
 }
-/* during scroll the glass tab turns mostly opaque so the section lines behind
-   never show through unblurred — full mirror glass returns when idle */
+/* during scroll the glass turns mostly opaque so the section lines behind
+   never show through unblurred — full liquid glass returns when idle */
 body.is-scrolling .tabs{
   background:
-    linear-gradient(180deg, rgba(38,38,44,.58) 0%, rgba(20,20,24,.66) 100%);
+    linear-gradient(180deg, rgba(44,44,50,.52) 0%, rgba(24,24,28,.60) 100%);
 }
 .header.is-hidden{transform:translateY(-110%)}
 .brand{
@@ -912,18 +912,11 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
     gap:16px;padding:9px 44px; /* wide beam — uniform rhythm, cluster centered */
     font-size:8.5px;letter-spacing:.2em;
     white-space:nowrap;
-    /* stronger static glass — stays visible when backdrop-filter pauses during scroll on phones */
+    /* liquid glass static fallback — slightly stronger so the pill stays bright when
+       backdrop-filter pauses during scroll on phones */
     background:
-      linear-gradient(180deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,.06) 45%, rgba(255,255,255,.085) 100%);
-    border-color:rgba(255,255,255,.32);
-  }
-  .tabs::before{
-    background:
-      linear-gradient(115deg, transparent 15%, rgba(255,255,255,.32) 35%, rgba(255,255,255,.10) 46%, transparent 60%),
-      linear-gradient(180deg, rgba(255,255,255,.36) 0%, rgba(255,255,255,.10) 26%, transparent 50%);
-  }
-  .tabs::after{
-    background:linear-gradient(0deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.06) 28%, transparent 45%);
+      linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.08) 45%, rgba(255,255,255,.05) 100%);
+    border-color:rgba(255,255,255,.36);
   }
 }
 
