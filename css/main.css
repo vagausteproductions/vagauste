@@ -41,8 +41,8 @@ em{font-style:italic}
    ============================================================ */
 .fx{position:fixed;inset:0;pointer-events:none;z-index:9500}
 .fx-grain{
-  background-image:url("../assets/img/grain.png");
-  background-size:256px;opacity:.09; /* static — no movement */
+  background-image:url("../assets/img/grain-64.png");
+  background-size:64px;opacity:.09; /* static — no movement; 64px tile = 239KB→2.3KB, same noise spectrum */
 }
 .fx-scan{
   background:repeating-linear-gradient(0deg,
@@ -482,6 +482,8 @@ html.is-negative{filter:invert(1) hue-rotate(180deg)}
   .menu-btn{display:block}
   .neg-btn{margin-right:14px;padding:6px 10px;font-size:8px;letter-spacing:.26em}
   .header{padding-top:calc(env(safe-area-inset-top,0px) + 30px);padding-bottom:14px}
+  /* phone: cheaper backdrop blur — 10px→8px is visually identical at this size, less GPU work */
+  .header{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
   .hero__meta{display:none} /* phone only — Karachi text below options button */
 }
 
