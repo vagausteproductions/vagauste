@@ -386,6 +386,13 @@
      ============================================================ */
   var pageEls = $$(".page");
   var currentPage = null;
+  function pauseBts() {
+    var btsPage = $("#pageBts");
+    if (btsPage) {
+      var bv = btsPage.querySelector("video");
+      if (bv) bv.pause();
+    }
+  }
   function openPage(name) {
     var el = $("#page" + name.charAt(0).toUpperCase() + name.slice(1));
     if (!el) return;
