@@ -340,8 +340,8 @@
         }
         /* same glowing flicker on the bottom glass tabs — light lives on
            the TEXT, the glass stays clean */
-        var adaptEl = document.querySelector(".tabs__adapt");
-        if (adaptEl) adaptEl.style.opacity = "0";
+        var tabEls = document.querySelectorAll(".tabs__tab");
+        if (tabEls.length) {
           window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
         }
       }
