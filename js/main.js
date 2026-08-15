@@ -818,10 +818,15 @@
         words.forEach(function (el) {
           var t = el.textContent.replace(/\s/g, "");
           if (el.classList.contains("ltw--em") || t === "to") spot.push(el);
+          else if (t === "us.") spot.push(el.querySelector(".lt")); /* sirf "u" */
         });
         var spotLetters = [];
         spot.forEach(function (s) {
-          s.querySelectorAll(".lt").forEach(function (l) { spotLetters.push(l); });
+          if (s.classList.contains("ltw")) {
+            s.querySelectorAll(".lt").forEach(function (l) { spotLetters.push(l); });
+          } else {
+            spotLetters.push(s);
+          }
         });
         if (!spotLetters.length) return;
         var arm = function () {
