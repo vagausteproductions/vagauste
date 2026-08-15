@@ -7,6 +7,7 @@
 @font-face{font-family:"Railway";src:url("../assets/fonts/Railway-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
 @font-face{font-family:"Railway";src:url("../assets/fonts/Railway-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Railway";src:url("../assets/fonts/Railway-Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Noto Nastaliq Urdu";src:url("../assets/fonts/NotoNastaliqUrdu.ttf") format("truetype");font-weight:400 700;font-style:normal;font-display:swap}
 
 /* ---------- tokens ---------- */
 :root{
@@ -604,11 +605,19 @@ body.is-loaded .hero__meta{opacity:1}
 .hero__title .ltw--em{margin-right:.15em}
 .hero__row{
   position:relative;z-index:2;
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);
+  display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(10px,1.5vh,18px);
   max-width:86ch;
 }
 .hero__tag{
   font-size:clamp(12.5px,1.05vw,15px);line-height:1.8;color:var(--grey);
+}
+/* urdu line — Nastaliq, under the subhero */
+.hero__tag.ur{
+  font-family:"Noto Nastaliq Urdu",serif;
+  font-size:clamp(15px,1.35vw,19px);
+  line-height:2.1;letter-spacing:0;
+  color:var(--grey-2);
+  direction:rtl;text-align:right;
 }
 .hero__tag.en{
   color:var(--grey-2);font-size:clamp(12px,1vw,14px);letter-spacing:.02em;
