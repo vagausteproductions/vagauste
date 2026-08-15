@@ -780,16 +780,17 @@
             var tl = gsap.timeline();
             var dips = Math.floor(gsap.utils.random(2, 4));
             for (var d = 0; d < dips; d++) {
-              tl.to(el, { opacity: gsap.utils.random(0.2, 0.6), duration: gsap.utils.random(0.05, 0.12) })
+              tl.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.2, 0.6), duration: gsap.utils.random(0.05, 0.12) })
                 .to(el, { opacity: 1, duration: gsap.utils.random(0.05, 0.12) });
             }
           } else if (roll < 0.23) {
-            /* clear buzz — a visible dip */
-            gsap.to(el, { opacity: gsap.utils.random(0.5, 0.75), duration: gsap.utils.random(0.06, 0.12),
-              yoyo: true, repeat: gsap.utils.random(0, 1), repeatDelay: gsap.utils.random(0.02, 0.08) });
+            /* clear buzz — a visible dip, always returning to full */
+            gsap.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.5, 0.75), duration: gsap.utils.random(0.06, 0.12),
+              yoyo: true, repeat: gsap.utils.random(0, 1) > 0.5 ? 1 : 0, repeatDelay: gsap.utils.random(0.02, 0.08) });
           } else {
-            /* soft hum — barely-there texture */
-            gsap.to(el, { opacity: gsap.utils.random(0.8, 0.92), duration: gsap.utils.random(0.04, 0.07) });
+            /* soft hum — barely-there texture, always returning to full */
+            gsap.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.8, 0.92), duration: gsap.utils.random(0.04, 0.07),
+              yoyo: true, repeat: 1 });
           }
           self._hum(el);
         });
