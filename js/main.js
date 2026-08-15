@@ -453,6 +453,9 @@
     if (!currentPage) return;
     var el = currentPage;
     currentPage = null;
+    if (adaptTimer) { clearInterval(adaptTimer); adaptTimer = 0; }
+    var adaptEl = document.querySelector(\".tabs__adapt\");
+    if (adaptEl) adaptEl.style.opacity = \"0\";
     if (lenis) lenis.start(); /* background scroll resumes */
     pauseBts();
     $$(".tabs__tab").forEach(function (t) { t.classList.remove("is-active"); });

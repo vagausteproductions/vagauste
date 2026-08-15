@@ -459,18 +459,15 @@ body.is-scrolling .tabs{
   background:
     linear-gradient(180deg, rgba(40,40,46,.42) 0%, rgba(20,20,24,.50) 100%);
 }
-/* adaptive glass (iOS behavior): over bright content the beam darkens so the text
-   stays legible; over black it stays clear. multiply(mid-gray) does exactly that.
-   Active only over static backdrops — the page overlays and the paused film */
+/* adaptive glass (iOS behavior): the beam darkens over bright content so the text
+   stays legible. opacity is driven by a JS luminance probe of what's behind
+   (canvas sample of the images under the beam) — no blend modes, works everywhere */
 .tabs__adapt{
   position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   z-index:1;
-  background:rgb(128,128,128);
-  mix-blend-mode:multiply;
-  opacity:0;transition:opacity .35s ease;
+  background:rgb(15,15,19);
+  opacity:0;transition:opacity .3s ease;
 }
-body.liquid-glass-live .tabs__adapt,
-body.is-page-open .tabs__adapt{opacity:.34}
 .header.is-hidden{transform:translateY(-110%)}
 .brand{
   display:inline-flex;align-items:center;
