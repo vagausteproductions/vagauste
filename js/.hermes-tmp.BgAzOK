@@ -812,6 +812,7 @@
         var flaky = el.__flaky;
         var gap = flaky ? gsap.utils.random(1.5, 4) : gsap.utils.random(4, 12);
         var t = gsap.delayedCall(gap, function () {
+          if (self._spotActive) { self._hum(el); return; } /* spotlight hold — stay quiet */
           var roll = gsap.utils.random(0, 1);
           if (roll < 0.04) {
             /* faulty tube — the light actually goes OUT, stutters back on */
