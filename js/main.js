@@ -260,7 +260,7 @@
     clearTimeout(scrollIdleTimer);
     scrollIdleTimer = setTimeout(function () {
       document.body.classList.remove("is-scrolling");
-    }, 260);
+    }, 140);
   }
   function cacheMetrics() {
     scrollMax = document.documentElement.scrollHeight - window.innerHeight;
@@ -425,6 +425,7 @@
     if (currentPage === el) { closePage(); return; } /* toggle off */
     currentPage = el;
     document.body.classList.add("is-locked");
+    document.body.classList.add("is-page-open"); /* adaptive glass — legible over any backdrop */
     el.classList.add("is-open");
     el.setAttribute("aria-hidden", "false");
     if (name === "bts") {
