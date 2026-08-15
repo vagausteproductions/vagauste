@@ -793,7 +793,8 @@
           }
           self._hum(el);
         });
-        /* only the pending chains are tracked — transient tweens fire and forget */
+        /* keep only live chains — prune finished tweens so the registry never grows */
+        self._timers = self._timers.filter(function (t) { return t && t.isActive && t.isActive(); });
         self._timers.push(t);
       },
       stop: function () {
