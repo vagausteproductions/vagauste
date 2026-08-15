@@ -324,28 +324,26 @@
      ============================================================ */
   var io = null;
   function startReveals() {
-    $$(".hero__title .line > span").forEach(function (s, i) {
-      setTimeout(function () { s.classList.add("in"); }, 150 + i * 140);
-    });
-    /* neon billboard flicker — buzzes on after the lines land */
-    setTimeout(function () {
-      if (window.VagausteNeon) {
-        var heroTitle = $(".hero__title");
-        if (heroTitle) {
-          window.VagausteNeon.start({
-            lines: heroTitle.querySelectorAll(".line > span"),
-            em: heroTitle.querySelector("em"),
-            delay: 1.85
-          });
-        }
-        /* same glowing flicker on the bottom glass tabs — light lives on
-           the TEXT, the glass stays clean */
-        var tabEls = document.querySelectorAll(".tabs__tab");
-        if (tabEls.length) {
-          window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
-        }
+    /* hero title — no vertical reveal; it powers up via the per-letter billboard
+       flicker (random order, each letter its own warm-up buzz) */
+    if (window.VagausteNeon) {
+      var heroTitle = $(".hero__title");
+      if (heroTitle) {
+        window.VagausteNeon.start({
+          lines: heroTitle.querySelectorAll(".line > span"),
+          letters: true,
+          delay: 0.25
+        });
       }
-    }, 200);
+      /* same glowing flicker on the bottom glass tabs — light lives on
+         the TEXT, the glass stays clean */
+      var tabEls = document.querySelectorAll(".tabs__tab");
+      if (tabEls.length) {
+        window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
+      }
+    } else {
+      gsap.set(document.querySelectorAll(".hero__title .line > span, .tabs__tab"), { opacity: 1 });
+    }
     $$(".split-lines .line > span").forEach(function (s) { s.classList.add("in"); });
     io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
