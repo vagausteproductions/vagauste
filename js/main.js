@@ -760,8 +760,7 @@
                   .to(el, { opacity: 1, duration: gsap.utils.random(0.03, 0.09) });
               }
               self._timers.push(tl);
-              tl.eventCallback("onComplete", function () { self._hum(el); });
-            }
+              tl.eventCallback("onComplete", function () { self._hum(el); });            }
           });
           self._timers.push(tween);
         });
