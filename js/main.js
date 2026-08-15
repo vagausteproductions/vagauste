@@ -670,6 +670,7 @@
         var o = cfg || {};
         var lines = o.lines || [];
         if (!lines.length) return;
+        if (o.letters) { this._letters(lines, o); return; }
         var em = o.em || null;
         var baseDelay = o.delay != null ? o.delay : 1.6;
         var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -712,6 +713,72 @@
           });
         }, this);
         if (em) this._tube(em, { delay: baseDelay + gsap.utils.random(0, 1.2, true), age: 2, humDepth: 0.08 });
+      },
+      /* per-letter billboard switch-on — each tube lights INDEPENDENTLY in
+         random order with its own warm-up buzz, like a real sign powering up */
+      _letters: function (lines, o) {
+        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var letters = [];
+        var self = this;
+        lines.forEach(function (line) {
+          var text = line.textContent;
+          line.textContent = "";
+          /* split into individual letter tubes; spaces become their own tubes */
+          text.split("").forEach(function (ch) {
+            var lt = document.createElement("span");
+            lt.className = "lt";
+            lt.textContent = ch === " " ? "\u00A0" : ch;
+            line.appendChild(lt);
+            letters.push(lt);
+          });
+        });
+        if (reduced) {
+          gsap.set(letters, { opacity: 1 });
+          return;
+        }
+        /* power-up: random order, random delay — a slow, uneven switch-on */
+        var order = letters.slice();
+        for (var i = order.length - 1; i > 0; i--) {
+          var j = Math.floor(gsap.utils.random(0, i + 1, true));
+          var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+        }
+        order.forEach(function (el, idx) {
+          var delay = gsap.utils.random(0.1, 3.2, true) + idx * gsap.utils.random(0.008, 0.05, true);
+          var tween = gsap.delayedCall(delay, function () {
+            /* warm-up buzz — some tubes tease on before they commit */
+            if (gsap.utils.random(0, 1, true) < 0.4) {
+              gsap.to(el, { opacity: gsap.utils.random(0.35, 0.7, true), duration: gsap.utils.random(0.05, 0.12, true),
+                onComplete: function () {
+                  gsap.to(el, { opacity: 0, duration: gsap.utils.random(0.03, 0.09, true), onComplete: mainBurst });
+                } });
+            } else {
+              mainBurst();
+            }
+            function mainBurst() {
+              var dips = Math.floor(gsap.utils.random(1, 4, true));
+              var tl = gsap.timeline();
+              for (var d = 0; d < dips; d++) {
+                tl.to(el, { opacity: gsap.utils.random(0.15, 0.85, true), duration: gsap.utils.random(0.03, 0.11, true) })
+                  .to(el, { opacity: 1, duration: gsap.utils.random(0.03, 0.09, true) });
+              }
+              self._timers.push(tl);
+              tl.eventCallback("onComplete", function () { self._hum(el); });
+            }
+          });
+          self._timers.push(tween);
+        });
+      },
+      /* ambient tube life — occasional random dims, long gaps, never rhythmic */
+      _hum: function (el) {
+        var self = this;
+        var t = gsap.delayedCall(gsap.utils.random(2, 8, true), function () {
+          var dim = gsap.utils.random(0.75, 0.92, true);
+          var dur = gsap.utils.random(0.04, 0.11, true);
+          var tw = gsap.to(el, { opacity: dim, duration: dur, yoyo: true, repeat: gsap.utils.random(0, 2, true), repeatDelay: gsap.utils.random(0.02, 0.12, true) });
+          self._timers.push(tw);
+          self._hum(el);
+        });
+        self._timers.push(t);
       },
       stop: function () {
         this._timers.forEach(function (t) { t.kill(); });
