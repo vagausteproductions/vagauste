@@ -817,7 +817,7 @@
         var spot = [];
         words.forEach(function (el) {
           var t = el.textContent.replace(/\s/g, "");
-          if (el.classList.contains("ltw--em") || t === "to" || t === "us.") spot.push(el);
+          if (el.classList.contains("ltw--em") || t === "to") spot.push(el);
         });
         var spotLetters = [];
         spot.forEach(function (s) {
