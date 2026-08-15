@@ -870,7 +870,8 @@ body.is-loaded .hero__meta{opacity:1}
   opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease,transform .45s var(--ease-out);
   pointer-events:none;
 }
-/* page end — slide the beam away from the footer */
+/* page end — beam stays visible; the page's bottom clearance (clamp 96-120px) keeps
+   the content clear of the fixed glass beam, exactly like the landing footer */
 body.page-at-end .tabs{transform:translate(-50%, 170%)}
 .tabs *{-webkit-user-select:none;user-select:none}
 /* hover — invert monochrome: light glass, black text, max prominence */
@@ -958,7 +959,7 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .page.is-open{visibility:visible;pointer-events:auto}
 .page__inner{
   width:min(1080px,92vw);
-  padding:clamp(70px,9vh,110px) 0 clamp(60px,8vh,90px);
+  padding:clamp(70px,9vh,110px) 0 clamp(96px,14vh,120px); /* bottom clearance = glass beam zone, same as the landing footer */
 }
 .page__close{
   position:fixed;top:calc(var(--pad) * .7);right:var(--pad);z-index:2;
