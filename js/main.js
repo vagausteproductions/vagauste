@@ -460,6 +460,7 @@
       el.classList.remove("is-open");
       el.setAttribute("aria-hidden", "true");
       document.body.classList.remove("is-locked");
+      document.body.classList.remove("is-page-open");
     } });
   }
   $$("[data-page]").forEach(function (link) {
