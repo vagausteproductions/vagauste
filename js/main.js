@@ -497,7 +497,6 @@
     if (!currentPage) return;
     var el = currentPage;
     currentPage = null;
-    unbindPageEnd(el);
     if (adaptTimer) { clearInterval(adaptTimer); adaptTimer = 0; }
     var adaptEl = document.querySelector(".tabs__adapt");
     if (adaptEl) adaptEl.style.opacity = "0";
