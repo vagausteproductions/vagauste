@@ -469,6 +469,9 @@
     document.body.classList.add("is-page-open"); /* adaptive glass — legible over any backdrop */
     el.classList.add("is-open");
     el.setAttribute("aria-hidden", "false");
+    updateAdaptive();
+    if (adaptTimer) clearInterval(adaptTimer);
+    adaptTimer = setInterval(updateAdaptive, 400);
     if (name === "bts") {
       var btsVideo = el.querySelector("video");
       if (btsVideo && btsVideo.paused) {
