@@ -804,6 +804,42 @@
           self._timers.push(tween);
         });
       },
+      /* periodic spotlight — the whole sign cuts out, then "mattered to us"
+         burns bright for 2–3s, then the random loop resumes. Re-arms itself. */
+      startSpotlight: function (heroTitle) {
+        var self = this;
+        if (!heroTitle) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var letters = heroTitle.querySelectorAll(".lt");
+        var words = heroTitle.querySelectorAll(".ltw");
+        var spot = [];
+        words.forEach(function (el) {
+          var t = el.textContent.replace(/\s/g, "");
+          if (el.classList.contains("ltw--em") || t === "to" || t === "us.") spot.push(el);
+        });
+        var spotLetters = [];
+        spot.forEach(function (s) {
+          s.querySelectorAll(".lt").forEach(function (l) { spotLetters.push(l); });
+        });
+        if (!spotLetters.length) return;
+        var arm = function () {
+          var t = gsap.delayedCall(gsap.utils.random(9, 17), function () {
+            /* 1 — kill in-flight letter tweens, all lights out */
+            letters.forEach(function (l) { gsap.killTweensOf(l, "opacity"); });
+            gsap.to(letters, { opacity: 0.06, duration: 0.3, ease: "power2.in" });
+            /* 2 — the line burns bright and holds */
+            var hold = gsap.utils.random(2.2, 3.2);
+            self._spotActive = true;
+            gsap.to(spotLetters, { opacity: 1, duration: 0.12, delay: 0.34 });
+            /* 3 — release back into the random loop */
+            gsap.to(letters, { opacity: 1, duration: 0.35, delay: 0.34 + hold, ease: "power1.out",
+              onComplete: function () { self._spotActive = false; } });
+            arm();
+          });
+          self._timers.push(t);
+        };
+        arm();
+      },
       /* ambient tube life — visible, organic: soft hums as texture, a clear
          buzz every couple of seconds, and a hard stutter every few seconds */
       _hum: function (el) {
@@ -812,6 +848,7 @@
         var flaky = el.__flaky;
         var gap = flaky ? gsap.utils.random(1.5, 4) : gsap.utils.random(4, 12);
         var t = gsap.delayedCall(gap, function () {
+          if (self._spotActive) { self._hum(el); return; } /* spotlight hold — stay quiet */
           var roll = gsap.utils.random(0, 1);
           if (roll < 0.04) {
             /* faulty tube — the light actually goes OUT, stutters back on */
