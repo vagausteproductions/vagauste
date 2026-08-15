@@ -340,8 +340,8 @@
         }
         /* same glowing flicker on the bottom glass tabs — light lives on
            the TEXT, the glass stays clean */
-        var tabEls = document.querySelectorAll(".tabs__tab");
-        if (tabEls.length) {
+        var adaptEl = document.querySelector(".tabs__adapt");
+        if (adaptEl) adaptEl.style.opacity = "0";
           window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
         }
       }
@@ -454,8 +454,8 @@
     var el = currentPage;
     currentPage = null;
     if (adaptTimer) { clearInterval(adaptTimer); adaptTimer = 0; }
-    var adaptEl = document.querySelector(\".tabs__adapt\");
-    if (adaptEl) adaptEl.style.opacity = \"0\";
+    var adaptEl = document.querySelector(".tabs__adapt");
+    if (adaptEl) adaptEl.style.opacity = "0";
     if (lenis) lenis.start(); /* background scroll resumes */
     pauseBts();
     $$(".tabs__tab").forEach(function (t) { t.classList.remove("is-active"); });
