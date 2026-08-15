@@ -867,9 +867,11 @@ body.is-loaded .hero__meta{opacity:1}
     0 22px 70px rgba(0,0,0,.40);           /* deep soft shadow */
   font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#bcbcb6;
   -webkit-user-select:none;user-select:none;
-  opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease;
+  opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease,transform .45s var(--ease-out);
   pointer-events:none;
 }
+/* page end — slide the beam away from the footer */
+body.page-at-end .tabs{transform:translate(-50%, 170%)}
 .tabs *{-webkit-user-select:none;user-select:none}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
