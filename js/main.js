@@ -661,7 +661,7 @@
      ============================================================ */
   (function () {
     if (typeof gsap === "undefined") return;
-    var rnd = function (a, b) { return gsap.utils.random(a, b, true); };
+    var rnd = function (a, b) { return gsap.utils.random(a, b); };
     window.VagausteNeon = {
       _timers: [],
       start: function (cfg) {
