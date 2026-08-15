@@ -402,6 +402,47 @@
      ============================================================ */
   var pageEls = $$(".page");
   var currentPage = null;
+  var adaptTimer = 0;
+
+  /* adaptive glass (iOS behavior) — sample the average luminance of the images
+     sitting behind the beam and darken it only as much as needed, so the white
+     text stays legible over bright photos and clear over dark ones */
+  function updateAdaptive() {
+    var adapt = document.querySelector(".tabs__adapt");
+    if (!adapt) return;
+    if (!currentPage) { adapt.style.opacity = "0"; return; }
+    var tr = document.querySelector(".tabs").getBoundingClientRect();
+    var imgs = currentPage.querySelectorAll("img, video");
+    var sum = 0, n = 0;
+    var c = document.createElement("canvas");
+    c.width = c.height = 8;
+    var ctx = c.getContext("2d");
+    for (var i = 0; i < imgs.length; i++) {
+      var im = imgs[i];
+      var r = im.getBoundingClientRect();
+      var ox = Math.max(r.left, tr.left), oy = Math.max(r.top, tr.top);
+      var ex = Math.min(r.right, tr.right), ey = Math.min(r.bottom, tr.bottom);
+      if (ox >= ex || oy >= ey) continue;
+      var sw = (ex - ox) / r.width * im.naturalWidth;
+      var sh = (ey - oy) / r.height * im.naturalHeight;
+      var sx = (ox - r.left) / r.width * im.naturalWidth;
+      var sy = (oy - r.top) / r.height * im.naturalHeight;
+      try {
+        ctx.clearRect(0, 0, 8, 8);
+        ctx.drawImage(im, sx, sy, sw, sh, 0, 0, 8, 8);
+        var data = ctx.getImageData(0, 0, 8, 8).data;
+        var s = 0;
+        for (var k = 0; k < data.length; k += 4) {
+          s += 0.299 * data[k] + 0.587 * data[k + 1] + 0.114 * data[k + 2];
+        }
+        sum += s / 64;
+        n++;
+      } catch (e) {}
+    }
+    var lum = n ? sum / n : 0;
+    var need = Math.max(0, Math.min(0.55, (lum - 70) / 220));
+    adapt.style.opacity = need.toFixed(2);
+  }
   function pauseBts() {
     var btsPage = $("#pageBts");
     if (btsPage) {
