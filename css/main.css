@@ -958,6 +958,8 @@ body.is-loaded .tabs{opacity:1;pointer-events:auto}
 .page.is-open{visibility:visible;pointer-events:auto}
 .page__inner{
   width:min(1080px,92vw);
+  align-self:flex-start; /* don't stretch to the viewport — height follows content, so the
+     bottom padding becomes real clearance below the last row (beam zone) */
   padding:clamp(70px,9vh,110px) 0 clamp(96px,14vh,120px); /* bottom clearance = glass beam zone, same as the landing footer */
 }
 .page__close{
