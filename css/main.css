@@ -870,7 +870,7 @@ body.is-loaded .hero__meta{opacity:1}
   opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease;
   pointer-events:none;
 }
- .tabs *{-webkit-user-select:none;user-select:none}
+.tabs *{-webkit-user-select:none;user-select:none}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
 .tabs:hover .tabs__tab{text-shadow:none}
