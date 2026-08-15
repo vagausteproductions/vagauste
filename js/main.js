@@ -766,37 +766,34 @@
           self._timers.push(tween);
         });
       },
-      /* ambient tube life — visible, organic: most letters hum softly, some
-         buzz clearly, and a few flaky tubes stutter hard like old signage */
+      /* ambient tube life — visible, organic: soft hums as texture, a clear
+         buzz every couple of seconds, and a hard stutter every few seconds */
       _hum: function (el) {
         var self = this;
         if (el.__flaky === undefined) el.__flaky = gsap.utils.random(0, 1) < 0.13;
         var flaky = el.__flaky;
-        var gap = flaky ? gsap.utils.random(0.8, 2.6) : gsap.utils.random(1.4, 5.5);
+        var gap = flaky ? gsap.utils.random(1.5, 4) : gsap.utils.random(4, 12);
         var t = gsap.delayedCall(gap, function () {
           var roll = gsap.utils.random(0, 1);
-          if (roll < 0.14) {
+          if (roll < 0.03) {
             /* faulty tube — stutters hard before settling back */
             var tl = gsap.timeline();
-            var dips = Math.floor(gsap.utils.random(2, 5));
+            var dips = Math.floor(gsap.utils.random(2, 4));
             for (var d = 0; d < dips; d++) {
-              tl.to(el, { opacity: gsap.utils.random(0.15, 0.55), duration: gsap.utils.random(0.05, 0.12) })
+              tl.to(el, { opacity: gsap.utils.random(0.2, 0.6), duration: gsap.utils.random(0.05, 0.12) })
                 .to(el, { opacity: 1, duration: gsap.utils.random(0.05, 0.12) });
             }
-            self._timers.push(tl);
-          } else if (roll < 0.5) {
-            /* visible buzz — a clear dip everyone can see */
-            var tw = gsap.to(el, { opacity: gsap.utils.random(0.45, 0.75), duration: gsap.utils.random(0.05, 0.1),
-              yoyo: true, repeat: gsap.utils.random(0, 2), repeatDelay: gsap.utils.random(0.02, 0.1) });
-            self._timers.push(tw);
+          } else if (roll < 0.23) {
+            /* clear buzz — a visible dip */
+            gsap.to(el, { opacity: gsap.utils.random(0.5, 0.75), duration: gsap.utils.random(0.06, 0.12),
+              yoyo: true, repeat: gsap.utils.random(0, 1), repeatDelay: gsap.utils.random(0.02, 0.08) });
           } else {
-            /* soft hum — gentle texture */
-            var tw2 = gsap.to(el, { opacity: gsap.utils.random(0.7, 0.9), duration: gsap.utils.random(0.04, 0.09),
-              yoyo: true, repeat: gsap.utils.random(0, 1), repeatDelay: gsap.utils.random(0.02, 0.06) });
-            self._timers.push(tw2);
+            /* soft hum — barely-there texture */
+            gsap.to(el, { opacity: gsap.utils.random(0.8, 0.92), duration: gsap.utils.random(0.04, 0.07) });
           }
           self._hum(el);
         });
+        /* only the pending chains are tracked — transient tweens fire and forget */
         self._timers.push(t);
       },
       stop: function () {
