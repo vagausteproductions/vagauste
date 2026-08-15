@@ -766,14 +766,35 @@
           self._timers.push(tween);
         });
       },
-      /* ambient tube life — occasional random dims, long gaps, never rhythmic */
+      /* ambient tube life — visible, organic: most letters hum softly, some
+         buzz clearly, and a few flaky tubes stutter hard like old signage */
       _hum: function (el) {
         var self = this;
-        var t = gsap.delayedCall(gsap.utils.random(2, 8), function () {
-          var dim = gsap.utils.random(0.75, 0.92);
-          var dur = gsap.utils.random(0.04, 0.11);
-          var tw = gsap.to(el, { opacity: dim, duration: dur, yoyo: true, repeat: gsap.utils.random(0, 2), repeatDelay: gsap.utils.random(0.02, 0.12) });
-          self._timers.push(tw);
+        if (el.__flaky === undefined) el.__flaky = gsap.utils.random(0, 1) < 0.13;
+        var flaky = el.__flaky;
+        var gap = flaky ? gsap.utils.random(0.8, 2.6) : gsap.utils.random(1.4, 5.5);
+        var t = gsap.delayedCall(gap, function () {
+          var roll = gsap.utils.random(0, 1);
+          if (roll < 0.14) {
+            /* faulty tube — stutters hard before settling back */
+            var tl = gsap.timeline();
+            var dips = Math.floor(gsap.utils.random(2, 5));
+            for (var d = 0; d < dips; d++) {
+              tl.to(el, { opacity: gsap.utils.random(0.15, 0.55), duration: gsap.utils.random(0.05, 0.12) })
+                .to(el, { opacity: 1, duration: gsap.utils.random(0.05, 0.12) });
+            }
+            self._timers.push(tl);
+          } else if (roll < 0.5) {
+            /* visible buzz — a clear dip everyone can see */
+            var tw = gsap.to(el, { opacity: gsap.utils.random(0.45, 0.75), duration: gsap.utils.random(0.05, 0.1),
+              yoyo: true, repeat: gsap.utils.random(0, 2), repeatDelay: gsap.utils.random(0.02, 0.1) });
+            self._timers.push(tw);
+          } else {
+            /* soft hum — gentle texture */
+            var tw2 = gsap.to(el, { opacity: gsap.utils.random(0.7, 0.9), duration: gsap.utils.random(0.04, 0.09),
+              yoyo: true, repeat: gsap.utils.random(0, 1), repeatDelay: gsap.utils.random(0.02, 0.06) });
+            self._timers.push(tw2);
+          }
           self._hum(el);
         });
         self._timers.push(t);
