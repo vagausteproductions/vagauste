@@ -867,13 +867,10 @@ body.is-loaded .hero__meta{opacity:1}
     0 22px 70px rgba(0,0,0,.40);           /* deep soft shadow */
   font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#bcbcb6;
   -webkit-user-select:none;user-select:none;
-  opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease,transform .45s var(--ease-out);
+  opacity:0;transition:opacity 1s var(--ease-out) 1s,filter .5s var(--ease-out),background .25s ease;
   pointer-events:none;
 }
-/* page end — beam stays visible; the page's bottom clearance (clamp 96-120px) keeps
-   the content clear of the fixed glass beam, exactly like the landing footer */
-body.page-at-end .tabs{transform:translate(-50%, 170%)}
-.tabs *{-webkit-user-select:none;user-select:none}
+ .tabs *{-webkit-user-select:none;user-select:none}
 /* hover — invert monochrome: light glass, black text, max prominence */
 .tabs:hover{filter:invert(1) grayscale(1)}
 .tabs:hover .tabs__tab{text-shadow:none}

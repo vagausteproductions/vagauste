@@ -404,30 +404,6 @@
   var currentPage = null;
   var adaptTimer = 0;
 
-  /* at the very end of an open page the beam slides down out of the way so it
-     never covers the page footer — returns the moment you scroll back up */
-  function bindPageEnd(el) {
-    if (el._pageEndBound) el.removeEventListener("scroll", el._pageEndBound);
-    var h = function () {
-      if (el.scrollHeight <= el.clientHeight + 4) {
-        document.body.classList.remove("page-at-end");
-        return;
-      }
-      var dist = el.scrollHeight - el.scrollTop - el.clientHeight;
-      document.body.classList.toggle("page-at-end", dist < 90);
-    };
-    el._pageEndBound = h;
-    el.addEventListener("scroll", h, { passive: true });
-    h();
-  }
-  function unbindPageEnd(el) {
-    if (el._pageEndBound) {
-      el.removeEventListener("scroll", el._pageEndBound);
-      el._pageEndBound = null;
-    }
-    document.body.classList.remove("page-at-end");
-  }
-
   /* adaptive glass (iOS behavior) — sample the average luminance of the images
      sitting behind the beam and darken it only as much as needed, so the white
      text stays legible over bright photos and clear over dark ones */
@@ -493,7 +469,6 @@
     document.body.classList.add("is-page-open"); /* adaptive glass — legible over any backdrop */
     el.classList.add("is-open");
     el.setAttribute("aria-hidden", "false");
-    bindPageEnd(el);
     updateAdaptive();
     if (adaptTimer) clearInterval(adaptTimer);
     adaptTimer = setInterval(updateAdaptive, 400);
