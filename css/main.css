@@ -519,6 +519,8 @@ html.is-negative{filter:invert(1) hue-rotate(180deg)}
   /* phone: cheaper backdrop blur — 10px→8px is visually identical at this size, less GPU work */
   .header{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
   .hero__meta{display:none} /* phone only — Karachi text below options button */
+  /* phone: taller beam zone (safe-area + 36px offset) — content needs more clearance */
+  .page__inner{padding-bottom:clamp(130px,18vh,160px)}
 }
 
 /* ---------- mobile menu ---------- */
