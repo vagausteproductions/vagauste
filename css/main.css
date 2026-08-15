@@ -596,9 +596,12 @@ body.is-loaded .hero__meta{opacity:1}
 /* no vertical mask/reveal — the hero lights up via the per-letter billboard flicker */
 .hero__title .line{display:block}
 .hero__title .lt{display:inline-block;opacity:0} /* off until the flicker switch-on lights it */
-.hero__title em{font-weight:400;font-style:italic}
-/* italic letters overhang right — give the word gap after an <em> a touch more room */
-.hero__title em.lt + .lt{margin-left:.15em}
+/* words are atomic — the browser can never break a word across lines */
+.hero__title .ltw{display:inline-block;white-space:nowrap}
+/* the emphasized word — a real serif italic, a different voice */
+.hero__title em{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400}
+/* italic letters overhang right — give the word gap after the em a touch more room */
+.hero__title .ltw--em{margin-right:.15em}
 .hero__row{
   position:relative;z-index:2;
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);

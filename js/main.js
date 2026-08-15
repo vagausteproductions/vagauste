@@ -728,18 +728,44 @@
             if (start >= 0) emRanges.push([start, start + e.textContent.length]);
           });
           line.textContent = "";
-          /* split into individual letter tubes; spaces become their own tubes */
-          text.split("").forEach(function (ch, idx) {
-            var inEm = false;
+          var inEm = function (idx) {
             for (var r = 0; r < emRanges.length; r++) {
-              if (idx >= emRanges[r][0] && idx < emRanges[r][1]) { inEm = true; break; }
+              if (idx >= emRanges[r][0] && idx < emRanges[r][1]) return true;
             }
-            var lt = document.createElement(inEm ? "em" : "span");
-            lt.className = "lt";
-            lt.textContent = ch === " " ? "\u00A0" : ch;
-            line.appendChild(lt);
-            letters.push(lt);
+            return false;
+          };
+          /* words become atomic wrappers (never break mid-word), letters are
+             individual tubes inside; spaces are their own tubes between */
+          var chars = text.split("");
+          var wordStart = -1;
+          var flushWord = function (endIdx) {
+            var w = document.createElement("span");
+            var wordEm = false;
+            for (var k = wordStart; k < endIdx; k++) {
+              var lt = document.createElement(inEm(k) ? "em" : "span");
+              lt.className = "lt";
+              lt.textContent = chars[k];
+              w.appendChild(lt);
+              letters.push(lt);
+              if (inEm(k)) wordEm = true;
+            }
+            if (wordEm) w.className = "ltw ltw--em";
+            else w.className = "ltw";
+            line.appendChild(w);
+          };
+          chars.forEach(function (ch, idx) {
+            if (ch === " ") {
+              if (wordStart >= 0) { flushWord(idx); wordStart = -1; }
+              var sp = document.createElement("span");
+              sp.className = "lt";
+              sp.textContent = "\u00A0";
+              line.appendChild(sp);
+              letters.push(sp);
+            } else if (wordStart < 0) {
+              wordStart = idx;
+            }
           });
+          if (wordStart >= 0) flushWord(chars.length);
         });
         if (reduced) {
           gsap.set(letters, { opacity: 1 });
