@@ -775,18 +775,18 @@
         var gap = flaky ? gsap.utils.random(1.5, 4) : gsap.utils.random(4, 12);
         var t = gsap.delayedCall(gap, function () {
           var roll = gsap.utils.random(0, 1);
-          if (roll < 0.03) {
-            /* faulty tube — stutters hard before settling back */
+          if (roll < 0.04) {
+            /* faulty tube — the light actually goes OUT, stutters back on */
             var tl = gsap.timeline();
             var dips = Math.floor(gsap.utils.random(2, 4));
             for (var d = 0; d < dips; d++) {
-              tl.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.2, 0.6), duration: gsap.utils.random(0.05, 0.12) })
-                .to(el, { opacity: 1, duration: gsap.utils.random(0.05, 0.12) });
+              tl.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.05, 0.25), duration: gsap.utils.random(0.04, 0.09) })
+                .to(el, { opacity: 1, duration: gsap.utils.random(0.04, 0.09) });
             }
-          } else if (roll < 0.23) {
-            /* clear buzz — a visible dip, always returning to full */
-            gsap.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.5, 0.75), duration: gsap.utils.random(0.06, 0.12),
-              yoyo: true, repeat: gsap.utils.random(0, 1) > 0.5 ? 1 : 0, repeatDelay: gsap.utils.random(0.02, 0.08) });
+          } else if (roll < 0.26) {
+            /* clear cut-out — the letter's light goes off for a blink */
+            gsap.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.08, 0.3), duration: gsap.utils.random(0.05, 0.1),
+              yoyo: true, repeat: gsap.utils.random(0, 1) > 0.5 ? 1 : 0, repeatDelay: gsap.utils.random(0.03, 0.1) });
           } else {
             /* soft hum — barely-there texture, always returning to full */
             gsap.fromTo(el, { opacity: 1 }, { opacity: gsap.utils.random(0.8, 0.92), duration: gsap.utils.random(0.04, 0.07),
