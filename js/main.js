@@ -720,10 +720,21 @@
         var self = this;
         lines.forEach(function (line) {
           var text = line.textContent;
+          /* remember which character ranges are <em> so the italic word
+             survives the letter split */
+          var emRanges = [];
+          line.querySelectorAll("em").forEach(function (e) {
+            var start = text.indexOf(e.textContent);
+            if (start >= 0) emRanges.push([start, start + e.textContent.length]);
+          });
           line.textContent = "";
           /* split into individual letter tubes; spaces become their own tubes */
-          text.split("").forEach(function (ch) {
-            var lt = document.createElement("span");
+          text.split("").forEach(function (ch, idx) {
+            var inEm = false;
+            for (var r = 0; r < emRanges.length; r++) {
+              if (idx >= emRanges[r][0] && idx < emRanges[r][1]) { inEm = true; break; }
+            }
+            var lt = document.createElement(inEm ? "em" : "span");
             lt.className = "lt";
             lt.textContent = ch === " " ? "\u00A0" : ch;
             line.appendChild(lt);

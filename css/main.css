@@ -596,7 +596,7 @@ body.is-loaded .hero__meta{opacity:1}
 /* no vertical mask/reveal — the hero lights up via the per-letter billboard flicker */
 .hero__title .line{display:block}
 .hero__title .lt{display:inline-block;opacity:0} /* off until the flicker switch-on lights it */
-.hero__title em{font-weight:400}
+.hero__title em{font-weight:400;font-style:italic}
 .hero__row{
   position:relative;z-index:2;
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);
