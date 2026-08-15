@@ -2,3 +2,5 @@ qa/
 *.log
 .DS_Store
 .vercel/
+
+.vercel
