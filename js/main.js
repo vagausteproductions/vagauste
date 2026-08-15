@@ -705,12 +705,12 @@
         }
         words.forEach(function (el, i) {
           this._tube(el, {
-            delay: baseDelay + gsap.utils.random(0, 1.5, true) + i * 0.03,
+            delay: baseDelay + gsap.utils.random(0, 1.5) + i * 0.03,
             age: Math.floor(gsap.utils.random(0, 4)),
-            humDepth: gsap.utils.random(0.04, 0.10, true)
+            humDepth: gsap.utils.random(0.04, 0.10)
           });
         }, this);
-        if (em) this._tube(em, { delay: baseDelay + gsap.utils.random(0, 1.2, true), age: 2, humDepth: 0.08 });
+        if (em) this._tube(em, { delay: baseDelay + gsap.utils.random(0, 1.2), age: 2, humDepth: 0.08 });
       },
       /* per-letter billboard switch-on — each tube lights INDEPENDENTLY in
          random order with its own warm-up buzz, like a real sign powering up */
