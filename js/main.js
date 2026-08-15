@@ -334,6 +334,8 @@
           letters: true,
           delay: 0.25
         });
+        /* recurring spotlight — "mattered to us" burns bright while the rest cuts out */
+        window.VagausteNeon.startSpotlight(heroTitle);
       }
       /* same glowing flicker on the bottom glass tabs — light lives on
          the TEXT, the glass stays clean */
