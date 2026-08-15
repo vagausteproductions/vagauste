@@ -831,12 +831,15 @@
             gsap.to(letters, { opacity: 0.06, duration: 0.3, ease: "power2.in" });
             /* 2 — the line burns bright and holds */
             var hold = gsap.utils.random(2.2, 3.2);
-            self._dbg = { hold: hold, spotCount: spotLetters.length };
             self._spotActive = true;
             gsap.to(spotLetters, { opacity: 1, duration: 0.12, delay: 0.34 });
-            /* 3 — release back into the random loop */
+            /* 3 — release back into the random loop; snap every letter to full
+               so no tube can stay frozen from a killed mid-dip tween */
             gsap.to(letters, { opacity: 1, duration: 0.35, delay: 0.34 + hold, ease: "power1.out",
-              onComplete: function () { self._spotActive = false; } });
+              onComplete: function () {
+                self._spotActive = false;
+                letters.forEach(function (l) { gsap.set(l, { opacity: 1 }); });
+              } });
             arm();
           });
           self._timers.push(t);
