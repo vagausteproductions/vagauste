@@ -152,11 +152,12 @@
       }, 4.3)
       .set(midLetters, { "--ca": "10px" }, 4.3)
       .set(farLetters, { "--ca": "9px" }, 4.3)
-      /* ONE blur on the container (1 filtered layer) instead of 8 per-letter
-         filters — same visual (whole lockup melts), ~8× cheaper frames.
-         blur 9px + scale 1.8 = balanced melt look, half the fill cost of
-         blur 14 + scale 2.3 (measured: fewer >33ms frames in the melt window) */
-      .set(wmEl, { filter: "blur(9px)" }, 4.3)
+      /* melt is compositor-pure: chromatic bleed (--ca) is baked into the letter
+         text-shadows (set once), stretch + fade ride transform/opacity only.
+         NO filter blur during melt — filter forces a filtered-layer re-raster
+         per frame on the largest layer (measured spike source). The bleed's
+         built-in shadow blur (14-18px per color) already softens the edges —
+         the melt reads soft without the Gaussian cost. */
       .to(coreLetters, { opacity: 0.15, duration: 0.9, ease: "power2.in" }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
       .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
