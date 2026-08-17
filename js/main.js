@@ -53,10 +53,12 @@
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var base = 56;
 
-    /* chromatic fringe lives on the OUTER letters (V + é) only —
-       center letters stay clean white */
-    var coreEdge = [coreLetters[0], coreLetters[7]];
-    var coreMid = coreLetters.slice(1, 7);
+    /* chromatic fringe — 4-band gradient: outer letters (V + é) strongest,
+       a/t medium, g/s lighter, center (a/u) stays clean white */
+    var coreOuter = [coreLetters[0], coreLetters[7]];
+    var coreBandB = [coreLetters[1], coreLetters[6]];
+    var coreBandC = [coreLetters[2], coreLetters[5]];
+    var coreCenter = [coreLetters[3], coreLetters[4]];
 
     /* feet + frames load counter — starts with the intro */
     if (window.VagausteLoad) window.VagausteLoad.start();
