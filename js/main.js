@@ -133,15 +133,20 @@
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
-    /* EXIT — MELT: the lockup widens from the center while the outer
-       letters (V + é) melt away sideways — extra stretch, chromatic
-       bleed + blur on the melting edges, a light-leak passes over */
+    /* EXIT — MELT: the WHOLE lockup melts as one — every letter drifts
+       outward proportionally (V -120 … é +120), extra stretch, chromatic
+       bleed + blur — no center split, one smooth symmetric motion.
+       A light-leak passes over. "Productions" exit untouched below. */
     var wmEl = document.querySelector(".wordmark");
 
     tl.to(wmEl, { scaleX: 2.3, opacity: 0, duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreOuter[0], { x: -120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreOuter[1], { x: 120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to([coreBandB, coreBandC, coreCenter], { opacity: 0, filter: "blur(8px)", "--ca": "1.5px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreLetters, {
+        x: [-120, -70, -35, -10, 10, 35, 70, 120],
+        scaleX: [2.6, 2.4, 2.2, 2.0, 2.0, 2.2, 2.4, 2.6],
+        "--ca": [18, 14, 10, 2, 2, 10, 14, 18],
+        filter: ["blur(12px)", "blur(12px)", "blur(12px)", "blur(8px)", "blur(8px)", "blur(12px)", "blur(12px)", "blur(12px)"],
+        opacity: 0, duration: 0.9, ease: "power3.in"
+      }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
       .to(midLetters, { "--ca": "8px", duration: 0.85, ease: "power3.in" }, 4.4)
       .to(farLetters, { "--ca": "7px", duration: 0.8, ease: "power3.in" }, 4.5)
