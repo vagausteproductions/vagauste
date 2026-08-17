@@ -148,11 +148,13 @@
 
     tl.to(wmEl, { scaleX: 2.3, duration: 0.9, ease: "power3.in" }, 4.3)
       .set(coreLetters, {
-        "--ca": [22, 18, 14, 6, 6, 14, 18, 22],
-        filter: "blur(14px)"
+        "--ca": [22, 18, 14, 6, 6, 14, 18, 22]
       }, 4.3)
       .set(midLetters, { "--ca": "10px" }, 4.3)
       .set(farLetters, { "--ca": "9px" }, 4.3)
+      /* ONE blur on the container (1 filtered layer) instead of 8 per-letter
+         filters — same visual (whole lockup melts), ~8× cheaper frames */
+      .set(wmEl, { filter: "blur(14px)" }, 4.3)
       .to(coreLetters, { opacity: 0.15, duration: 0.9, ease: "power2.in" }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
       .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
