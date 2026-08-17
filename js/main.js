@@ -135,24 +135,25 @@
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
-    /* EXIT — MELT: the lockup stretches symmetrically from its CENTER (container
-       scaleX, origin 50% 50% — equally to both sides, perfectly centered) while
-       every letter AMPLIFIES its chromatic bleed + blur and HOLDS visible to the
-       last frame (opacity only dips to 0.15 — never zero — the preloader's
-       is-done fade finishes the job). No per-letter drift, no overlap, no
-       sideways pull. Light-leak passes over. "Productions" exit untouched. */
+    /* EXIT — MELT: lockup stretches symmetrically from its CENTER (container
+       scaleX, origin 50% 50% — equally to both sides) while every letter
+       AMPLIFIES chromatic bleed + blur. PERF: --ca + filter are quick-set in
+       0.22s (bounded style churn) then only transform+opacity ride the
+       compositor — no per-frame recalc — no mid-melt stutter. Letters HOLD
+       visible to the last frame (opacity dips to 0.15, never zero; the
+       preloader's is-done fade finishes). "Productions" exit untouched. */
     var wmEl = document.querySelector(".wordmark");
 
     tl.to(wmEl, { scaleX: 2.3, duration: 0.9, ease: "power3.in" }, 4.3)
       .to(coreLetters, {
         "--ca": [22, 18, 14, 6, 6, 14, 18, 22],
         filter: "blur(14px)",
-        opacity: 0.15,
-        duration: 0.9, ease: "power2.in"
+        duration: 0.22, ease: "none"
       }, 4.3)
+      .to(coreLetters, { opacity: 0.15, duration: 0.9, ease: "power2.in" }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(midLetters, { "--ca": "10px", duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(farLetters, { "--ca": "9px", duration: 0.8, ease: "power3.in" }, 4.5)
+      .to(midLetters, { "--ca": "10px", duration: 0.22, ease: "none" }, 4.4)
+      .to(farLetters, { "--ca": "9px", duration: 0.22, ease: "none" }, 4.5)
       .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
       .to(leakEl, { opacity: 0.16, duration: 0.6, ease: "power2.out" }, 4.3)
       .to(halo, { opacity: 0.25, duration: 0.8, ease: "power2.out" }, 4.6);
