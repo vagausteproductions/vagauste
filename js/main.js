@@ -95,11 +95,13 @@
     tl.to(coreLetters, { opacity: 0.9, filter: "blur(2.5px)", duration: 0.65, ease: "power2.out" }, 1.2)
       .to(sub, { opacity: 0.9, filter: "blur(1.8px)", duration: 0.6, ease: "power2.out" }, 1.28);
 
-    /* PHASE 06 — chromatic fringe: softened on outer letters (V + é) with
-       extra blur so it blends, center letters stay clean white; the
+    /* PHASE 06 — chromatic fringe: 4-band dispersion — outer letters (V + é)
+       strongest, a/t medium, g/s lighter, center letters clean white; the
        feathered aberration mask layer fades in */
-    tl.to(coreEdge, { "--ca": "10px", filter: "blur(3px)", duration: 0.4, ease: "sine.inOut" }, 1.85)
-      .to(coreMid, { "--ca": "1.2px", duration: 0.4, ease: "sine.inOut" }, 1.85)
+    tl.to(coreOuter, { "--ca": "10px", filter: "blur(3px)", duration: 0.4, ease: "sine.inOut" }, 1.85)
+      .to(coreBandB, { "--ca": "6px", duration: 0.4, ease: "sine.inOut" }, 1.85)
+      .to(coreBandC, { "--ca": "3px", duration: 0.4, ease: "sine.inOut" }, 1.85)
+      .to(coreCenter, { "--ca": "1px", duration: 0.4, ease: "sine.inOut" }, 1.85)
       .to(aberEl, { opacity: 0.75, duration: 0.6, ease: "power2.out" }, 1.85)
       .to(midLetters, { opacity: 0.55, y: 6, filter: "blur(4px)", "--ca": "3px", duration: 0.8, ease: "power2.out" }, 1.5)
       .to(farLetters, { opacity: 0.35, y: 10, filter: "blur(7px)", "--ca": "4px", duration: 0.9, ease: "power2.out" }, 1.7);
@@ -107,8 +109,10 @@
     /* PHASE 07 — optical settle: lockup sharp, edges keep soft fringe */
     tl.to(coreLetters, { filter: "blur(0.6px)", opacity: 1, duration: 0.5, ease: "power2.out" }, 2.25)
       .to(sub, { opacity: 1, filter: "blur(0.4px)", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreMid, { "--ca": "0.8px", duration: 0.5, ease: "power2.out" }, 2.25);
+      .to(coreOuter, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.5, ease: "power2.out" }, 2.25)
+      .to(coreBandB, { "--ca": "2.8px", duration: 0.5, ease: "power2.out" }, 2.25)
+      .to(coreBandC, { "--ca": "1.6px", duration: 0.5, ease: "power2.out" }, 2.25)
+      .to(coreCenter, { "--ca": "0.7px", duration: 0.5, ease: "power2.out" }, 2.25);
 
     /* PHASE 08 — halation/exposure breathing: 100 → 96 → 100 */
     tl.to(coreLetters, { opacity: 0.96, duration: 0.18, ease: "sine.inOut" }, 2.75)
