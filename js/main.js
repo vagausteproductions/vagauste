@@ -146,7 +146,7 @@
        "Productions" exit untouched. */
     var wmEl = document.querySelector(".wordmark");
 
-    tl.to(wmEl, { scaleX: 2.3, duration: 0.9, ease: "power3.in" }, 4.3)
+    tl.to(wmEl, { scaleX: 1.8, duration: 0.9, ease: "power3.in" }, 4.3)
       .set(coreLetters, {
         "--ca": [22, 18, 14, 6, 6, 14, 18, 22]
       }, 4.3)
