@@ -382,26 +382,27 @@ main{
     0 0 40px rgba(255,255,255,.2);
 }
 /* center letters (a/u) — base .wm-core span rule only: clean white */
-/* aberration mask layer — red/yellow/blue dispersion feathered to the corner
-   letters only, softly blurred so it blends (no sharp edge) */
+/* aberration mask layer — red/yellow/blue dispersion feathered across the
+   outer half of the wordmark (V→a→g and s→t→é), fading smoothly to the
+   center so there's no hard edge — softly blurred to blend */
 .wm-aber{
   z-index:1;
   left:-70px;right:-70px;
   filter:blur(5px);
   opacity:0;
-  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 7%,transparent 40%,transparent 60%,#000 93%,#000 100%);
-  mask-image:linear-gradient(90deg,#000 0%,#000 7%,transparent 40%,transparent 60%,#000 93%,#000 100%);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.4) 26%,transparent 44%,transparent 56%,rgba(0,0,0,.4) 74%,#000 88%,#000 100%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.4) 26%,transparent 44%,transparent 56%,rgba(0,0,0,.4) 74%,#000 88%,#000 100%);
   pointer-events:none;
 }
 .wm-aber span{
   opacity:1;transform:none;filter:none;
   text-shadow:
-    0 0 4px rgba(255,196,64,.65),
-    0 0 18px rgba(255,196,64,.28),
-    -11px 0 2px rgba(255,20,60,.5),
-    -11px 0 18px rgba(255,20,60,.2),
-    11px 0 2px rgba(0,70,255,.5),
-    11px 0 18px rgba(0,70,255,.2);
+    0 0 5px rgba(255,196,64,.8),
+    0 0 22px rgba(255,196,64,.34),
+    -11px 0 2px rgba(255,20,60,.55),
+    -11px 0 18px rgba(255,20,60,.24),
+    11px 0 2px rgba(0,70,255,.55),
+    11px 0 18px rgba(0,70,255,.24);
 }
 .wm-mid{
   z-index:2;color:#e8e8e2;opacity:.6;
