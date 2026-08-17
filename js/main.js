@@ -146,14 +146,13 @@
        "Productions" exit untouched. */
     var wmEl = document.querySelector(".wordmark");
 
-    gsap.set(coreLetters, {
-      "--ca": [22, 18, 14, 6, 6, 14, 18, 22],
-      filter: "blur(14px)"
-    });
-    gsap.set(midLetters, { "--ca": "10px" });
-    gsap.set(farLetters, { "--ca": "9px" });
-
     tl.to(wmEl, { scaleX: 2.3, duration: 0.9, ease: "power3.in" }, 4.3)
+      .set(coreLetters, {
+        "--ca": [22, 18, 14, 6, 6, 14, 18, 22],
+        filter: "blur(14px)"
+      }, 4.3)
+      .set(midLetters, { "--ca": "10px" }, 4.3)
+      .set(farLetters, { "--ca": "9px" }, 4.3)
       .to(coreLetters, { opacity: 0.15, duration: 0.9, ease: "power2.in" }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
       .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
