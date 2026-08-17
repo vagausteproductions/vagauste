@@ -137,24 +137,25 @@
 
     /* EXIT — MELT: the lockup stretches symmetrically from its CENTER (container
        scaleX, origin 50% 50% — equally to both sides, perfectly centered) while
-       every letter gets chromatic bleed + blur + fade — no per-letter drift,
-       no overlap, no sideways pull. Light-leak passes over. "Productions"
-       exit untouched below. */
+       every letter AMPLIFIES its chromatic bleed + blur and HOLDS visible to the
+       last frame (opacity only dips to 0.15 — never zero — the preloader's
+       is-done fade finishes the job). No per-letter drift, no overlap, no
+       sideways pull. Light-leak passes over. "Productions" exit untouched. */
     var wmEl = document.querySelector(".wordmark");
 
-    tl.to(wmEl, { scaleX: 2.3, opacity: 0, duration: 0.9, ease: "power3.in" }, 4.3)
+    tl.to(wmEl, { scaleX: 2.3, duration: 0.9, ease: "power3.in" }, 4.3)
       .to(coreLetters, {
-        "--ca": [18, 14, 10, 4, 4, 10, 14, 18],
-        filter: "blur(12px)",
-        opacity: 0,
-        duration: 0.9, ease: "power3.in"
+        "--ca": [22, 18, 14, 6, 6, 14, 18, 22],
+        filter: "blur(14px)",
+        opacity: 0.15,
+        duration: 0.9, ease: "power2.in"
       }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(midLetters, { "--ca": "8px", duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(farLetters, { "--ca": "7px", duration: 0.8, ease: "power3.in" }, 4.5)
-      .to(aberEl, { opacity: 0, duration: 0.6, ease: "power2.out" }, 4.3)
+      .to(midLetters, { "--ca": "10px", duration: 0.85, ease: "power3.in" }, 4.4)
+      .to(farLetters, { "--ca": "9px", duration: 0.8, ease: "power3.in" }, 4.5)
+      .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
       .to(leakEl, { opacity: 0.16, duration: 0.6, ease: "power2.out" }, 4.3)
-      .to(halo, { opacity: 0, duration: 0.7, ease: "power2.out" }, 4.3);
+      .to(halo, { opacity: 0.25, duration: 0.8, ease: "power2.out" }, 4.6);
 
     setTimeout(finishIntro, 5400);
   }
