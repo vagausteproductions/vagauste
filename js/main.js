@@ -126,8 +126,10 @@
 
     /* PHASE 10 — final cleanup: glow softens, soft fringe stays */
     tl.to(halo, { opacity: 0.5, duration: 0.5, ease: "power2.out" }, 3.4)
-      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.4, ease: "power2.out" }, 3.4)
-      .to(coreMid, { "--ca": "0.8px", duration: 0.4, ease: "power2.out" }, 3.4);
+      .to(coreOuter, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.4, ease: "power2.out" }, 3.4)
+      .to(coreBandB, { "--ca": "2.8px", duration: 0.4, ease: "power2.out" }, 3.4)
+      .to(coreBandC, { "--ca": "1.6px", duration: 0.4, ease: "power2.out" }, 3.4)
+      .to(coreCenter, { "--ca": "0.7px", duration: 0.4, ease: "power2.out" }, 3.4);
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
