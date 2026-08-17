@@ -139,9 +139,9 @@
     var wmEl = document.querySelector(".wordmark");
 
     tl.to(wmEl, { scaleX: 2.3, opacity: 0, duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreEdge[0], { x: -120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreEdge[1], { x: 120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreMid, { opacity: 0, filter: "blur(8px)", "--ca": "1.5px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreOuter[0], { x: -120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreOuter[1], { x: 120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to([coreBandB, coreBandC, coreCenter], { opacity: 0, filter: "blur(8px)", "--ca": "1.5px", duration: 0.9, ease: "power3.in" }, 4.3)
       .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
       .to(midLetters, { "--ca": "8px", duration: 0.85, ease: "power3.in" }, 4.4)
       .to(farLetters, { "--ca": "7px", duration: 0.8, ease: "power3.in" }, 4.5)
