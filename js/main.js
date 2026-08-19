@@ -53,12 +53,10 @@
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var base = 56;
 
-    /* chromatic fringe — 4-band gradient: outer letters (V + é) strongest,
-       a/t medium, g/s lighter, center (a/u) stays clean white */
-    var coreOuter = [coreLetters[0], coreLetters[7]];
-    var coreBandB = [coreLetters[1], coreLetters[6]];
-    var coreBandC = [coreLetters[2], coreLetters[5]];
-    var coreCenter = [coreLetters[3], coreLetters[4]];
+    /* chromatic fringe lives on the OUTER letters (V + é) only —
+       center letters stay clean white */
+    var coreEdge = [coreLetters[0], coreLetters[7]];
+    var coreMid = coreLetters.slice(1, 7);
 
     /* feet + frames load counter — starts with the intro */
     if (window.VagausteLoad) window.VagausteLoad.start();
@@ -95,13 +93,11 @@
     tl.to(coreLetters, { opacity: 0.9, filter: "blur(2.5px)", duration: 0.65, ease: "power2.out" }, 1.2)
       .to(sub, { opacity: 0.9, filter: "blur(1.8px)", duration: 0.6, ease: "power2.out" }, 1.28);
 
-    /* PHASE 06 — chromatic fringe: 4-band dispersion — outer letters (V + é)
-       strongest, a/t medium, g/s lighter, center letters clean white; the
+    /* PHASE 06 — chromatic fringe: softened on outer letters (V + é) with
+       extra blur so it blends, center letters stay clean white; the
        feathered aberration mask layer fades in */
-    tl.to(coreOuter, { "--ca": "10px", filter: "blur(3px)", duration: 0.4, ease: "sine.inOut" }, 1.85)
-      .to(coreBandB, { "--ca": "8px", duration: 0.4, ease: "sine.inOut" }, 1.85)
-      .to(coreBandC, { "--ca": "3px", duration: 0.4, ease: "sine.inOut" }, 1.85)
-      .to(coreCenter, { "--ca": "1px", duration: 0.4, ease: "sine.inOut" }, 1.85)
+    tl.to(coreEdge, { "--ca": "10px", filter: "blur(3px)", duration: 0.4, ease: "sine.inOut" }, 1.85)
+      .to(coreMid, { "--ca": "1.2px", duration: 0.4, ease: "sine.inOut" }, 1.85)
       .to(aberEl, { opacity: 0.75, duration: 0.6, ease: "power2.out" }, 1.85)
       .to(midLetters, { opacity: 0.55, y: 6, filter: "blur(4px)", "--ca": "3px", duration: 0.8, ease: "power2.out" }, 1.5)
       .to(farLetters, { opacity: 0.35, y: 10, filter: "blur(7px)", "--ca": "4px", duration: 0.9, ease: "power2.out" }, 1.7);
@@ -109,10 +105,8 @@
     /* PHASE 07 — optical settle: lockup sharp, edges keep soft fringe */
     tl.to(coreLetters, { filter: "blur(0.6px)", opacity: 1, duration: 0.5, ease: "power2.out" }, 2.25)
       .to(sub, { opacity: 1, filter: "blur(0.4px)", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreOuter, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreBandB, { "--ca": "3.6px", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreBandC, { "--ca": "1.6px", duration: 0.5, ease: "power2.out" }, 2.25)
-      .to(coreCenter, { "--ca": "0.7px", duration: 0.5, ease: "power2.out" }, 2.25);
+      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.5, ease: "power2.out" }, 2.25)
+      .to(coreMid, { "--ca": "0.8px", duration: 0.5, ease: "power2.out" }, 2.25);
 
     /* PHASE 08 — halation/exposure breathing: 100 → 96 → 100 */
     tl.to(coreLetters, { opacity: 0.96, duration: 0.18, ease: "sine.inOut" }, 2.75)
@@ -124,45 +118,28 @@
       .to(coreLetters, { opacity: 0.99, duration: 0.05, ease: "none" }, 3.26)
       .to(coreLetters, { opacity: 1, duration: 0.08, ease: "none" }, 3.31);
 
-    /* PHASE 10 — glow softens slightly, but the chromatic fringe STAYS full
-       (no --ca reduction — user wants the dispersion visible right up to
-       the melt exit) */
-    tl.to(halo, { opacity: 0.55, duration: 0.5, ease: "power2.out" }, 3.4)
-      .to(coreOuter, { filter: "blur(1.4px)", duration: 0.4, ease: "power2.out" }, 3.4)
-      .to(coreBandB, { filter: "blur(1.2px)", duration: 0.4, ease: "power2.out" }, 3.4)
-      .to(coreBandC, { filter: "blur(1.0px)", duration: 0.4, ease: "power2.out" }, 3.4)
-      .to(coreCenter, { filter: "blur(0.8px)", duration: 0.4, ease: "power2.out" }, 3.4);
+    /* PHASE 10 — final cleanup: glow softens, soft fringe stays */
+    tl.to(halo, { opacity: 0.5, duration: 0.5, ease: "power2.out" }, 3.4)
+      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 0.4, ease: "power2.out" }, 3.4)
+      .to(coreMid, { "--ca": "0.8px", duration: 0.4, ease: "power2.out" }, 3.4);
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
-    /* EXIT — MELT: lockup stretches symmetrically from its CENTER (container
-       scaleX, origin 50% 50% — equally to both sides) while every letter
-       carries its FULL chromatic bleed + blur. PERF: --ca + filter are
-       gsap.set ONCE at melt start (single style write per letter — custom
-       props invalidate style on EVERY write, so no tween, no per-frame
-       recalc) then only transform+opacity ride the compositor — zero
-       mid-melt churn. Letters HOLD visible to the last frame (opacity dips
-       to 0.15, never zero; the preloader's is-done fade finishes).
-       "Productions" exit untouched. */
+    /* EXIT — MELT: the lockup widens from the center while the outer
+       letters (V + é) melt away sideways — extra stretch, chromatic
+       bleed + blur on the melting edges, a light-leak passes over */
     var wmEl = document.querySelector(".wordmark");
 
-    /* EXIT — smooth melt with CONTINUOUS motion (no dead-zone freeze).
-       Chromatic bleed is baked at 4.0s (static --ca). From 4.35s the lockup
-       stretches subtly (scaleX 1.35 — low enough to avoid re-raster jank on
-       text-shadow letters) while the letters dim and the sub fades; no
-       lingering hold, so the exit reads as one flowing motion into the
-       CSS is-done fade at 5.4s. "Productions" exit untouched below. */
-    tl.to(wmEl, { scaleX: 1.35, duration: 0.8, ease: "power2.in" }, 4.35)
-      .set(coreLetters, {
-        "--ca": [22, 18, 14, 6, 6, 14, 18, 22]
-      }, 4.0)
-      .set(midLetters, { "--ca": "10px" }, 4.0)
-      .set(farLetters, { "--ca": "9px" }, 4.0)
-      .to(coreLetters, { opacity: 0, duration: 0.8, ease: "power2.in" }, 4.35)
-      .to(sub, { scaleX: 1.7, opacity: 0, duration: 0.6, ease: "power3.in" }, 4.6)
-      .to(aberEl, { opacity: 0.5, duration: 0.7, ease: "power2.out" }, 4.7)
-      .to(leakEl, { opacity: 0.13, duration: 0.6, ease: "power2.out" }, 4.45)
-      .to(halo, { opacity: 0.35, duration: 0.7, ease: "power2.out" }, 4.7);
+    tl.to(wmEl, { scaleX: 2.3, opacity: 0, duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreEdge[0], { x: -120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreEdge[1], { x: 120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(coreMid, { opacity: 0, filter: "blur(8px)", "--ca": "1.5px", duration: 0.9, ease: "power3.in" }, 4.3)
+      .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
+      .to(midLetters, { "--ca": "8px", duration: 0.85, ease: "power3.in" }, 4.4)
+      .to(farLetters, { "--ca": "7px", duration: 0.8, ease: "power3.in" }, 4.5)
+      .to(aberEl, { opacity: 0, duration: 0.6, ease: "power2.out" }, 4.3)
+      .to(leakEl, { opacity: 0.16, duration: 0.6, ease: "power2.out" }, 4.3)
+      .to(halo, { opacity: 0, duration: 0.7, ease: "power2.out" }, 4.3);
 
     setTimeout(finishIntro, 5400);
   }
@@ -172,33 +149,11 @@
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
-    /* Reveals alone (neon letter split) are cheap when staggered per-line.
-       The .8s fade keeps the 36 compositor layers promoted (no will-change
-       strip mid-fade — that was the exit freeze). Only AFTER the fade ends
-       do we release layer-promotion hints and drop the node, scheduled to
-       idle so it never blocks a visible frame. */
-    setTimeout(startReveals, 850);
+    /* free the intro layers once the fade completes */
     setTimeout(function () {
-      /* fade is done (0.8s) — now it's safe to release layers + remove */
-      var faded = function () {
-        preloader.classList.add("is-faded");
-        if (window.requestIdleCallback) {
-          window.requestIdleCallback(function () {
-            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-          }, { timeout: 6000 });
-        } else {
-          setTimeout(function () {
-            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-          }, 1200);
-        }
-      };
-      if (document.hidden) {
-        faded();
-      } else {
-        /* one frame so the fade completion is definitely painted first */
-        requestAnimationFrame(faded);
-      }
-    }, 1100);
+      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+    }, 900);
+    startReveals();
   }
 
   /* ============================================================
@@ -374,29 +329,17 @@
     if (window.VagausteNeon) {
       var heroTitle = $(".hero__title");
       if (heroTitle) {
-        var heroLines = heroTitle.querySelectorAll(".line > span");
-        /* split+flicker each LINE on its own frame — building 38 letter
-           tubes in one tick is a ~75ms long task that freezes the exit;
-           staggering lines by 60ms splits it into imperceptible chunks */
-        Array.prototype.forEach.call(heroLines, function (ln, i) {
-          setTimeout(function () {
-            window.VagausteNeon.start({
-              lines: [ln],
-              letters: true,
-              delay: 0.25
-            });
-          }, i * 60);
+        window.VagausteNeon.start({
+          lines: heroTitle.querySelectorAll(".line > span"),
+          letters: true,
+          delay: 0.25
         });
       }
       /* same glowing flicker on the bottom glass tabs — light lives on
-         the TEXT, the glass stays clean (deferred so it never collides
-         with the hero split) */
+         the TEXT, the glass stays clean */
       var tabEls = document.querySelectorAll(".tabs__tab");
       if (tabEls.length) {
-        var self = this;
-        setTimeout(function () {
-          window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
-        }, heroLines.length * 60 + 40);
+        window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
       }
     } else {
       gsap.set(document.querySelectorAll(".hero__title .line > span, .tabs__tab"), { opacity: 1 });

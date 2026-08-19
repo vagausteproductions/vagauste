@@ -262,12 +262,7 @@ main{
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
 .preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
-/* NOTE: `.preloader.is-done *{will-change:auto}` is NOT applied here —
-   stripping 36 compositor layers WHILE the .8s opacity fade runs forces the
-   full-screen subtree onto the software paint path mid-transition (~96ms
-   exit freeze, measured). is-faded (added by JS after the fade completes)
-   releases layers safely, and the node is removed on idle. */
-.preloader.is-faded *{will-change:auto} /* post-fade layer release */
+.preloader.is-done *{will-change:auto} /* free compositor layers after the intro */
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,
@@ -343,28 +338,14 @@ main{
     0 0 16px rgba(255,255,255,.42),
     0 0 36px rgba(255,255,255,.22);
 }
-/* chromatic fringe — 4-band gradient. Yellow shadows come FIRST (rendered
-   on top) so white bloom can't bury them. Strength falls off toward the
-   center: V+é strongest → a+t medium → g+s lighter → center clean. */
-.wm-core span:nth-child(1),
-.wm-core span:nth-child(8){
+/* outer letters (V + é) — yellow dispersion sits between red and blue,
+   wider glow layers = more bloom, blurred offsets = soft edges.
+   Yellow shadows come FIRST (rendered on top) so white bloom can't bury them */
+.wm-core span:first-child,
+.wm-core span:last-child{
   text-shadow:
-    0 0 5px rgba(255,190,60,.85),
-    0 0 20px rgba(255,190,60,.4),
-    0 0 44px rgba(255,190,60,.18),
-    calc(var(--ca,4.5px) * -1) 0 1px rgba(255,25,70,.55),
-    calc(var(--ca,4.5px) * -1) 0 18px rgba(255,25,70,.24),
-    var(--ca,4.5px) 0 1px rgba(0,80,255,.55),
-    var(--ca,4.5px) 0 18px rgba(0,80,255,.24),
-    0 0 8px rgba(255,255,255,.8),
-    0 0 18px rgba(255,255,255,.4),
-    0 0 40px rgba(255,255,255,.2);
-}
-.wm-core span:nth-child(2),
-.wm-core span:nth-child(7){
-  text-shadow:
-    0 0 4px rgba(255,190,60,.65),
-    0 0 16px rgba(255,190,60,.3),
+    0 0 4px rgba(255,190,60,.7),
+    0 0 16px rgba(255,190,60,.32),
     calc(var(--ca,4.5px) * -1) 0 1px rgba(255,25,70,.5),
     calc(var(--ca,4.5px) * -1) 0 16px rgba(255,25,70,.2),
     var(--ca,4.5px) 0 1px rgba(0,80,255,.5),
@@ -373,41 +354,26 @@ main{
     0 0 18px rgba(255,255,255,.4),
     0 0 40px rgba(255,255,255,.2);
 }
-.wm-core span:nth-child(3),
-.wm-core span:nth-child(6){
-  text-shadow:
-    0 0 3px rgba(255,190,60,.45),
-    0 0 12px rgba(255,190,60,.2),
-    calc(var(--ca,4.5px) * -1) 0 1px rgba(255,25,70,.42),
-    calc(var(--ca,4.5px) * -1) 0 12px rgba(255,25,70,.16),
-    var(--ca,4.5px) 0 1px rgba(0,80,255,.42),
-    var(--ca,4.5px) 0 12px rgba(0,80,255,.16),
-    0 0 8px rgba(255,255,255,.8),
-    0 0 18px rgba(255,255,255,.4),
-    0 0 40px rgba(255,255,255,.2);
-}
-/* center letters (a/u) — base .wm-core span rule only: clean white */
-/* aberration mask layer — red/yellow/blue dispersion feathered across the
-   outer half of the wordmark (V→a→g and s→t→é), fading smoothly to the
-   center so there's no hard edge — softly blurred to blend */
+/* aberration mask layer — red/yellow/blue dispersion feathered to the corner
+   letters only, softly blurred so it blends (no sharp edge) */
 .wm-aber{
   z-index:1;
   left:-70px;right:-70px;
   filter:blur(5px);
   opacity:0;
-  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.4) 26%,transparent 44%,transparent 56%,rgba(0,0,0,.4) 74%,#000 88%,#000 100%);
-  mask-image:linear-gradient(90deg,#000 0%,#000 12%,rgba(0,0,0,.4) 26%,transparent 44%,transparent 56%,rgba(0,0,0,.4) 74%,#000 88%,#000 100%);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 7%,transparent 40%,transparent 60%,#000 93%,#000 100%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 7%,transparent 40%,transparent 60%,#000 93%,#000 100%);
   pointer-events:none;
 }
 .wm-aber span{
   opacity:1;transform:none;filter:none;
   text-shadow:
-    0 0 5px rgba(255,196,64,.8),
-    0 0 22px rgba(255,196,64,.34),
-    -11px 0 2px rgba(255,20,60,.55),
-    -11px 0 18px rgba(255,20,60,.24),
-    11px 0 2px rgba(0,70,255,.55),
-    11px 0 18px rgba(0,70,255,.24);
+    0 0 4px rgba(255,196,64,.65),
+    0 0 18px rgba(255,196,64,.28),
+    -11px 0 2px rgba(255,20,60,.5),
+    -11px 0 18px rgba(255,20,60,.2),
+    11px 0 2px rgba(0,70,255,.5),
+    11px 0 18px rgba(0,70,255,.2);
 }
 .wm-mid{
   z-index:2;color:#e8e8e2;opacity:.6;
