@@ -262,7 +262,13 @@ main{
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
 .preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
-.preloader.is-done *{will-change:auto} /* free compositor layers after the intro */
+/* NOTE: `.preloader.is-done *{will-change:auto}` intentionally NOT applied —
+   stripping 36 compositor layers WHILE the .8s opacity fade runs forces the
+   full-screen subtree onto the software paint path mid-transition (a ~80ms
+   exit freeze, measured). Layers stay promoted through the fade; is-faded
+   (added by JS after the fade) releases them safely and the node is
+   dropped on idle — zero visual change, just no freeze. */
+.preloader.is-faded *{will-change:auto}
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,

@@ -149,11 +149,26 @@
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
-    /* free the intro layers once the fade completes */
-    setTimeout(function () {
-      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-    }, 900);
     startReveals();
+    /* free the intro layers once the fade completes — add is-faded AFTER the
+       .8s fade (not at is-done) so layer-release happens on a quiet frame,
+       then drop the node on idle. Identical look, no exit freeze. */
+    setTimeout(function () {
+      var faded = function () {
+        preloader.classList.add("is-faded");
+        if (window.requestIdleCallback) {
+          window.requestIdleCallback(function () {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, { timeout: 5000 });
+        } else {
+          setTimeout(function () {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 1200);
+        }
+      };
+      if (document.hidden) faded();
+      else requestAnimationFrame(faded);
+    }, 1200);
   }
 
   /* ============================================================
