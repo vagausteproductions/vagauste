@@ -272,7 +272,14 @@ main{
    exit freeze, measured). Layers stay promoted through the fade; is-faded
    (added by JS after the fade) releases them safely and the node is
    dropped on idle — zero visual change, just no freeze. */
+.preloader.is-faded{display:none}
 .preloader.is-faded *{will-change:auto}
+/* is-faded (added by JS after the .8s fade completes) sets display:none so the
+   36 static-pinned will-change blurred layers (from .wm span) are released
+   from the compositor the INSTANT the fade ends — hidden-but-composited
+   textures were lingering on real GPUs as a "Vagausté shadow" after fade
+   (headless-clean, real-raster ghost). display:none detaches the subtree from
+   render entirely; removal is then pure bookkeeping on idle. */
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,
