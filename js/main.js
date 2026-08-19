@@ -147,11 +147,15 @@
     var wmEl = document.querySelector(".wordmark");
 
     tl.to(wmEl, { scaleX: 1.8, duration: 0.9, ease: "power3.in" }, 4.3)
+      /* chromatic bleed is pre-baked at 4.0s — ONE frame of text-shadow
+         recalc BEFORE the scaleX tween starts (4.3s), so the melt's first
+         frames ride a clean compositor (no recalc burst = no hitch at
+         melt start) */
       .set(coreLetters, {
         "--ca": [22, 18, 14, 6, 6, 14, 18, 22]
-      }, 4.3)
-      .set(midLetters, { "--ca": "10px" }, 4.3)
-      .set(farLetters, { "--ca": "9px" }, 4.3)
+      }, 4.0)
+      .set(midLetters, { "--ca": "10px" }, 4.0)
+      .set(farLetters, { "--ca": "9px" }, 4.0)
       /* melt is compositor-pure: chromatic bleed (--ca) is baked into the letter
          text-shadows (set once), stretch + fade ride transform/opacity only.
          NO filter blur during melt — filter forces a filtered-layer re-raster
@@ -172,11 +176,33 @@
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
-    /* free the intro layers once the fade completes */
+    /* Reveals alone (neon letter split) are cheap when staggered per-line.
+       The .8s fade keeps the 36 compositor layers promoted (no will-change
+       strip mid-fade — that was the exit freeze). Only AFTER the fade ends
+       do we release layer-promotion hints and drop the node, scheduled to
+       idle so it never blocks a visible frame. */
+    setTimeout(startReveals, 850);
     setTimeout(function () {
-      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-    }, 900);
-    startReveals();
+      /* fade is done (0.8s) — now it's safe to release layers + remove */
+      var faded = function () {
+        preloader.classList.add("is-faded");
+        if (window.requestIdleCallback) {
+          window.requestIdleCallback(function () {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, { timeout: 6000 });
+        } else {
+          setTimeout(function () {
+            if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 1200);
+        }
+      };
+      if (document.hidden) {
+        faded();
+      } else {
+        /* one frame so the fade completion is definitely painted first */
+        requestAnimationFrame(faded);
+      }
+    }, 1100);
   }
 
   /* ============================================================
@@ -352,17 +378,29 @@
     if (window.VagausteNeon) {
       var heroTitle = $(".hero__title");
       if (heroTitle) {
-        window.VagausteNeon.start({
-          lines: heroTitle.querySelectorAll(".line > span"),
-          letters: true,
-          delay: 0.25
+        var heroLines = heroTitle.querySelectorAll(".line > span");
+        /* split+flicker each LINE on its own frame — building 38 letter
+           tubes in one tick is a ~75ms long task that freezes the exit;
+           staggering lines by 60ms splits it into imperceptible chunks */
+        Array.prototype.forEach.call(heroLines, function (ln, i) {
+          setTimeout(function () {
+            window.VagausteNeon.start({
+              lines: [ln],
+              letters: true,
+              delay: 0.25
+            });
+          }, i * 60);
         });
       }
       /* same glowing flicker on the bottom glass tabs — light lives on
-         the TEXT, the glass stays clean */
+         the TEXT, the glass stays clean (deferred so it never collides
+         with the hero split) */
       var tabEls = document.querySelectorAll(".tabs__tab");
       if (tabEls.length) {
-        window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
+        var self = this;
+        setTimeout(function () {
+          window.VagausteNeon.start({ lines: tabEls, em: null, delay: 2.2 });
+        }, heroLines.length * 60 + 40);
       }
     } else {
       gsap.set(document.querySelectorAll(".hero__title .line > span, .tabs__tab"), { opacity: 1 });
