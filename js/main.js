@@ -125,21 +125,18 @@
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
-    /* EXIT — MELT: the lockup widens from the center while the outer
-       letters (V + é) melt away sideways — extra stretch, chromatic
-       bleed + blur on the melting edges, a light-leak passes over */
+    /* EXIT — smooth, pure-compositor fade. NO scaleX, NO per-letter
+       translate, NO blur during the hand-off: scaling/translating/blurring
+       text-shadow letters forces a full-screen re-raster EVERY FRAME on real
+       GPUs (the stutter the user keeps hitting — invisible to headless JS
+       metrics but obvious on hardware). Instead the wordmark simply holds
+       (chromatic fringe alive to the last frame) and the preloader's own
+       `.is-done` opacity/visibility transition (.8s) fades the whole thing
+       into the landing. Only cheap opacity tweens stay for the sub-layers. */
     var wmEl = document.querySelector(".wordmark");
-
-    tl.to(wmEl, { scaleX: 2.3, opacity: 0, duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreEdge[0], { x: -120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreEdge[1], { x: 120, scaleX: 2.6, opacity: 0, filter: "blur(12px)", "--ca": "18px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(coreMid, { opacity: 0, filter: "blur(8px)", "--ca": "1.5px", duration: 0.9, ease: "power3.in" }, 4.3)
-      .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(midLetters, { "--ca": "8px", duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(farLetters, { "--ca": "7px", duration: 0.8, ease: "power3.in" }, 4.5)
-      .to(aberEl, { opacity: 0, duration: 0.6, ease: "power2.out" }, 4.3)
-      .to(leakEl, { opacity: 0.16, duration: 0.6, ease: "power2.out" }, 4.3)
-      .to(halo, { opacity: 0, duration: 0.7, ease: "power2.out" }, 4.3);
+    tl.to(wmEl, { opacity: 0.18, duration: 0.35, ease: "power2.in" }, 5.0)
+      .to(leakEl, { opacity: 0.16, duration: 0.5, ease: "power2.out" }, 4.3)
+      .to(halo, { opacity: 0.35, duration: 0.7, ease: "power2.out" }, 4.3);
 
     setTimeout(finishIntro, 5400);
   }
@@ -344,10 +341,13 @@
     if (window.VagausteNeon) {
       var heroTitle = $(".hero__title");
       if (heroTitle) {
-        window.VagausteNeon.start({
-          lines: heroTitle.querySelectorAll(".line > span"),
-          letters: true,
-          delay: 0.25
+        var heroLines = heroTitle.querySelectorAll(".line > span");
+        /* stagger per-line so the DOM split (38+ letters + word wrappers) is
+           spread across separate frames — one sweep spikes the exit window */
+        Array.prototype.forEach.call(heroLines, function (l, i) {
+          setTimeout(function () {
+            window.VagausteNeon.start({ lines: [l], letters: true, delay: 0.25 });
+          }, i * 60);
         });
       }
       /* same glowing flicker on the bottom glass tabs — light lives on
