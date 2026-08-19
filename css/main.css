@@ -261,25 +261,16 @@ main{
   animation:crtFlicker 4.4s steps(1) infinite;
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
-.preloader.is-done{opacity:0;visibility:hidden;pointer-events:none;animation:none}
-/* animation:none above is REQUIRED: crtFlicker (steps(1), infinite) animates
-   opacity to 0.98-1 and a running animation overrides the declared opacity
-   transition — without it the is-done fade never runs and the preloader
-   sticks at ~0.98 opacity (the "Vagausté shadow left on screen" bug). */
-/* NOTE: `.preloader.is-done *{will-change:auto}` intentionally NOT applied —
-   stripping 36 compositor layers WHILE the .8s opacity fade runs forces the
-   full-screen subtree onto the software paint path mid-transition (a ~80ms
-   exit freeze, measured). Layers stay promoted through the fade; is-faded
-   (added by JS after the fade) releases them safely and the node is
-   dropped on idle — zero visual change, just no freeze. */
-.preloader.is-faded{display:none}
-.preloader.is-faded *{will-change:auto}
-/* is-faded (added by JS after the .8s fade completes) sets display:none so the
-   36 static-pinned will-change blurred layers (from .wm span) are released
-   from the compositor the INSTANT the fade ends — hidden-but-composited
-   textures were lingering on real GPUs as a "Vagausté shadow" after fade
-   (headless-clean, real-raster ghost). display:none detaches the subtree from
-   render entirely; removal is then pure bookkeeping on idle. */
+.preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+/* PORTED EXACT from v3 (user's known-good "bilkul sahi" preloader): is-done =
+   opacity:0 + visibility:hidden, NOTHING else. No animation:none, no is-faded,
+   no display:none, no DOM removal. Why this is ghost-free on real GPUs: the
+   wordmark (36 blurred will-change layers) is plainly hidden via visibility —
+   the browser stops painting the ENTIRE subtree at once instead of
+   opacity-compositing 36 blurred layers through a .8s fade (that composite
+   fade is what left a residual ghost on real hardware; headless can't see it).
+   crtFlicker may keep opacity pinned high, but visibility:hidden overrides
+   rendering entirely. Do NOT re-add fade-timing/teardown machinery here. */
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,
