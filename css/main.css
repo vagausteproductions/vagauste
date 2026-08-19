@@ -261,7 +261,11 @@ main{
   animation:crtFlicker 4.4s steps(1) infinite;
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
-.preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
+.preloader.is-done{opacity:0;visibility:hidden;pointer-events:none;animation:none}
+/* animation:none above is REQUIRED: crtFlicker (steps(1), infinite) animates
+   opacity to 0.98-1 and a running animation overrides the declared opacity
+   transition — without it the is-done fade never runs and the preloader
+   sticks at ~0.98 opacity (the "Vagausté shadow left on screen" bug). */
 /* NOTE: `.preloader.is-done *{will-change:auto}` intentionally NOT applied —
    stripping 36 compositor layers WHILE the .8s opacity fade runs forces the
    full-screen subtree onto the software paint path mid-transition (a ~80ms
