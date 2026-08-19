@@ -146,27 +146,23 @@
        "Productions" exit untouched. */
     var wmEl = document.querySelector(".wordmark");
 
-    tl.to(wmEl, { scaleX: 1.8, duration: 0.9, ease: "power3.in" }, 4.3)
-      /* chromatic bleed is pre-baked at 4.0s — ONE frame of text-shadow
-         recalc BEFORE the scaleX tween starts (4.3s), so the melt's first
-         frames ride a clean compositor (no recalc burst = no hitch at
-         melt start) */
+    /* EXIT — smooth melt with CONTINUOUS motion (no dead-zone freeze).
+       Chromatic bleed is baked at 4.0s (static --ca). From 4.35s the lockup
+       stretches subtly (scaleX 1.35 — low enough to avoid re-raster jank on
+       text-shadow letters) while the letters dim and the sub fades; no
+       lingering hold, so the exit reads as one flowing motion into the
+       CSS is-done fade at 5.4s. "Productions" exit untouched below. */
+    tl.to(wmEl, { scaleX: 1.35, duration: 0.8, ease: "power2.in" }, 4.35)
       .set(coreLetters, {
         "--ca": [22, 18, 14, 6, 6, 14, 18, 22]
       }, 4.0)
       .set(midLetters, { "--ca": "10px" }, 4.0)
       .set(farLetters, { "--ca": "9px" }, 4.0)
-      /* melt is compositor-pure: chromatic bleed (--ca) is baked into the letter
-         text-shadows (set once), stretch + fade ride transform/opacity only.
-         NO filter blur during melt — filter forces a filtered-layer re-raster
-         per frame on the largest layer (measured spike source). The bleed's
-         built-in shadow blur (14-18px per color) already softens the edges —
-         the melt reads soft without the Gaussian cost. */
-      .to(coreLetters, { opacity: 0.15, duration: 0.9, ease: "power2.in" }, 4.3)
-      .to(sub, { scaleX: 1.9, opacity: 0, duration: 0.85, ease: "power3.in" }, 4.4)
-      .to(aberEl, { opacity: 0.6, duration: 0.8, ease: "power2.out" }, 4.6)
-      .to(leakEl, { opacity: 0.16, duration: 0.6, ease: "power2.out" }, 4.3)
-      .to(halo, { opacity: 0.25, duration: 0.8, ease: "power2.out" }, 4.6);
+      .to(coreLetters, { opacity: 0, duration: 0.8, ease: "power2.in" }, 4.35)
+      .to(sub, { scaleX: 1.7, opacity: 0, duration: 0.6, ease: "power3.in" }, 4.6)
+      .to(aberEl, { opacity: 0.5, duration: 0.7, ease: "power2.out" }, 4.7)
+      .to(leakEl, { opacity: 0.13, duration: 0.6, ease: "power2.out" }, 4.45)
+      .to(halo, { opacity: 0.35, duration: 0.7, ease: "power2.out" }, 4.7);
 
     setTimeout(finishIntro, 5400);
   }
