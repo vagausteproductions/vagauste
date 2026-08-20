@@ -139,13 +139,21 @@
       .to(halo, { opacity: 0.4, duration: 0.7, ease: "power2.out" }, 4.3);
 
     /* extended tail — intro stays ALIVE: breathing pulse + fringe drift so
-       there is never a static dead-hold before the fade */
+       there is never a static dead-hold before the fade. Two full cycles so
+       the wordmark holds interest for the longer ~8s arc (user: "or lambi
+       karo length"). All cheap opacity/--ca tweens — zero scale/translate/
+       blur so no per-frame re-raster on real GPUs. */
     tl.to(coreLetters, { opacity: 0.985, duration: 0.7, ease: "sine.inOut" }, 4.6)
       .to(coreLetters, { opacity: 1, duration: 0.8, ease: "sine.inOut" }, 5.3)
       .to(coreEdge, { "--ca": "5.2px", filter: "blur(1.4px)", duration: 1.0, ease: "sine.inOut" }, 4.7)
-      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 1.0, ease: "sine.inOut" }, 5.7);
+      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 1.0, ease: "sine.inOut" }, 5.7)
+      /* second breathing + fringe cycle (6.2s → 7.4s) fills the longer arc */
+      .to(coreLetters, { opacity: 0.99, duration: 0.8, ease: "sine.inOut" }, 6.2)
+      .to(coreLetters, { opacity: 1, duration: 0.8, ease: "sine.inOut" }, 7.0)
+      .to(coreEdge, { "--ca": "5.0px", filter: "blur(1.5px)", duration: 0.9, ease: "sine.inOut" }, 6.4)
+      .to(coreEdge, { "--ca": "4.6px", filter: "blur(1.2px)", duration: 0.9, ease: "sine.inOut" }, 7.3);
 
-    setTimeout(finishIntro, 6500);
+    setTimeout(finishIntro, 8000);
   }
 
   function finishIntro() {
