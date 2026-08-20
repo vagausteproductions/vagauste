@@ -125,20 +125,27 @@
 
     /* PHASE 11 — final vintage frame hold (3.8s → 4.3s) */
 
-    /* EXIT — smooth, pure-compositor fade. NO scaleX, NO per-letter
-       translate, NO blur during the hand-off: scaling/translating/blurring
-       text-shadow letters forces a full-screen re-raster EVERY FRAME on real
-       GPUs (the stutter the user keeps hitting — invisible to headless JS
-       metrics but obvious on hardware). Instead the wordmark simply holds
-       (chromatic fringe alive to the last frame) and the preloader's own
-       `.is-done` opacity/visibility transition (.8s) fades the whole thing
-       into the landing. Only cheap opacity tweens stay for the sub-layers. */
-    var wmEl = document.querySelector(".wordmark");
-    tl.to(wmEl, { opacity: 0.18, duration: 0.35, ease: "power2.in" }, 5.0)
-      .to(leakEl, { opacity: 0.16, duration: 0.5, ease: "power2.out" }, 4.3)
-      .to(halo, { opacity: 0.35, duration: 0.7, ease: "power2.out" }, 4.3);
+    /* EXIT — the fade is a SEPARATE event that fires AFTER the intro arc
+       actually completes. User (real GPU): "intro ki length choti hai, beech
+       fadeout ho kar stale" — the old block dimmed the wordmark to 18% at
+       5.0s and faded at 5.4s right after the last motion phase (~3.9s), so
+       the intro read as cut short / mid-fade stale. Now:
+       - the wordmark STAYS at full opacity through the tail (no early dim)
+       - the tail keeps cheap opacity-only motion (breathing + fringe drift)
+         — zero scale/translate/blur (no per-frame re-raster on GPU) — so the
+         intro feels like a complete, longer arc,
+       - then GSAP fades the whole preloader as one smooth depart. */
+    tl.to(leakEl, { opacity: 0.18, duration: 0.6, ease: "power2.out" }, 4.3)
+      .to(halo, { opacity: 0.4, duration: 0.7, ease: "power2.out" }, 4.3);
 
-    setTimeout(finishIntro, 5400);
+    /* extended tail — intro stays ALIVE: breathing pulse + fringe drift so
+       there is never a static dead-hold before the fade */
+    tl.to(coreLetters, { opacity: 0.985, duration: 0.7, ease: "sine.inOut" }, 4.6)
+      .to(coreLetters, { opacity: 1, duration: 0.8, ease: "sine.inOut" }, 5.3)
+      .to(coreEdge, { "--ca": "5.2px", filter: "blur(1.4px)", duration: 1.0, ease: "sine.inOut" }, 4.7)
+      .to(coreEdge, { "--ca": "4.5px", filter: "blur(1.2px)", duration: 1.0, ease: "sine.inOut" }, 5.7);
+
+    setTimeout(finishIntro, 6500);
   }
 
   function finishIntro() {
