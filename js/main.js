@@ -142,15 +142,26 @@
   }
 
   function finishIntro() {
-    preloader.classList.add("is-done");
+    /* EXIT — a REAL smooth fade, driven by GSAP (root-cause fix):
+       crtFlicker animates opacity so it always overrides a plain `.is-done`
+       opacity:0, and Chrome won't run a CSS transition coming off an
+       animation-derived value (measured: opacity snapped to 0, no .8s fade).
+       So: 1) is-fading kills the animation (opacity freed), 2) GSAP drives
+       opacity 1→0 over .8s (true fade — compositor work), 3) is-done after
+       sets visibility:hidden as the resting state. */
+    preloader.classList.add("is-fading");
+    gsap.to(preloader, {
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.inOut",
+      onComplete: function () {
+        preloader.classList.add("is-done");
+      }
+    });
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
     startReveals();
-    /* PORTED EXACT from v3 (user's known-good): NO is-faded, NO removeChild,
-       NO idle teardown. is-done (visibility:hidden) stops painting the whole
-       subtree in one shot — v3-style. The node stays in the DOM hidden; that
-       is intentional and matches the known-good build. */
   }
 
   /* ============================================================

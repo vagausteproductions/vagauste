@@ -261,16 +261,17 @@ main{
   animation:crtFlicker 4.4s steps(1) infinite;
   transition:opacity .8s var(--ease-inout),visibility .8s;
 }
+/* two-step exit (root cause fix, verified): crtFlicker maintains opacity via
+   animation; animation:none + opacity:0 in the SAME style recalc makes Chrome
+   snap opacity instantly (no transition fires — the animation was the only
+   declared opacity). So is-fading (animation:none, opacity back to base 1)
+   is applied FIRST, and is-done (opacity:0) one frame later → the .8s
+   opacity transition runs 1→0 as a real smooth fade. */
+.preloader.is-fading{animation:none}
 .preloader.is-done{opacity:0;visibility:hidden;pointer-events:none}
-/* PORTED EXACT from v3 (user's known-good "bilkul sahi" preloader): is-done =
-   opacity:0 + visibility:hidden, NOTHING else. No animation:none, no is-faded,
-   no display:none, no DOM removal. Why this is ghost-free on real GPUs: the
-   wordmark (36 blurred will-change layers) is plainly hidden via visibility —
-   the browser stops painting the ENTIRE subtree at once instead of
-   opacity-compositing 36 blurred layers through a .8s fade (that composite
-   fade is what left a residual ghost on real hardware; headless can't see it).
-   crtFlicker may keep opacity pinned high, but visibility:hidden overrides
-   rendering entirely. Do NOT re-add fade-timing/teardown machinery here. */
+/* NOTE: do NOT add `.is-done *{will-change:auto}` here — stripping 36 layers
+   the moment the .8s fade starts is the ~96ms exit-freeze trap. Layers stay
+   promoted through the fade; the transition itself handles the rest. */
 .preloader__crt{
   position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,
