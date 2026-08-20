@@ -156,12 +156,19 @@
       ease: "power2.inOut",
       onComplete: function () {
         preloader.classList.add("is-done");
+        /* startReveals fires AFTER the wordmark is fully gone — otherwise the
+           hero title's glowing letters ignite WHILE the preloader wordmark is
+           still fading, both white-glowing in the same center band = the
+           "Vagausté shadow left on screen" the user sees (real-GPU only;
+           headless pixel stats can't name it). v3-known-good reveals the hero
+           late for the same reason. Clean sequence: wordmark fades out fully
+           → then landing letters power up. */
+        startReveals();
       }
     });
     document.body.classList.remove("is-locked");
     document.body.classList.add("is-loaded");
     loaded = true;
-    startReveals();
   }
 
   /* ============================================================
